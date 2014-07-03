@@ -1,7 +1,9 @@
-﻿using System;
+﻿using StringDetectorService.Trace;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Tracing;
 
 namespace StringDetectorService
 {
@@ -19,6 +21,9 @@ namespace StringDetectorService
             //    routeTemplate: "api/{controller}/{id}",
             //    defaults: new { id = RouteParameter.Optional }
             //);
+
+            //enable customized trace writer
+            config.Services.Replace(typeof(ITraceWriter), new CustomizedTraceWriter());
         }
     }
 }
