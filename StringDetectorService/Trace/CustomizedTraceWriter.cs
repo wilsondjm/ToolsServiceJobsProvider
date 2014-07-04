@@ -22,7 +22,13 @@ namespace StringDetectorService.Trace
             traceAction(record);
             //string basePath = HttpContext.Current.Server.MapPath("");
             //string path = HttpContext.Current.Server.MapPath("~/TraceLog.log");
-            File.AppendAllText(logFilePath, "[" + record.Level + "]:[" + record.Timestamp + ":[" + record.Status + "]:[" + record.Kind + "]:[" + record.Operator + "]:[" + record.Operation + "]:[Message#" + record.Message + "#]\r\n");
+            try
+            {
+                File.AppendAllText(logFilePath, "[" + record.Level + "]:[" + record.Timestamp + ":[" + record.Status + "]:[" + record.Kind + "]:[" + record.Operator + "]:[" + record.Operation + "]:[Message#" + record.Message + "#]\r\n");
+            }catch(Exception e)
+            {
+                //
+            }
            
         }
     }
