@@ -42,8 +42,13 @@ namespace RequestClient
             baseURL.Replace("[BUILDNUMBER]", buildNumber);
             string requestURL = baseURL.ToString();
 
-            using (var client = new HttpClient())
+            var handler = new HttpClientHandler()
             {
+                AllowAutoRedirect = false
+            };
+            using (var client = new HttpClient(handler))
+            {
+                
                 client.BaseAddress = new Uri(requestURL);
                 client.DefaultRequestHeaders.Accept.Clear();
                 HttpResponseMessage response = client.PostAsync("", new StringContent(String.Empty)).Result;

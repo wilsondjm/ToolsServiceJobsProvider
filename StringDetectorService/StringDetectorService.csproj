@@ -16,9 +16,9 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -89,6 +89,7 @@
     <Content Include="StringDetectorWebClient\ajax\notify\notifications.html" />
     <Content Include="StringDetectorWebClient\ajax\notify\tasks.html" />
     <Content Include="StringDetectorWebClient\ajax\website-template.html" />
+    <Content Include="StringDetectorWebClient\createjobform.html" />
     <Content Include="StringDetectorWebClient\css\bootstrap.css" />
     <Content Include="StringDetectorWebClient\css\bootstrap.min.css" />
     <Content Include="StringDetectorWebClient\css\custom.css" />
@@ -103,7 +104,6 @@
     <Content Include="StringDetectorWebClient\datatables.html" />
     <Content Include="StringDetectorWebClient\fonts\fontawesome-webfont.svg" />
     <Content Include="StringDetectorWebClient\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="StringDetectorWebClient\forum.html" />
     <Content Include="StringDetectorWebClient\img\ajax-loader.gif" />
     <Content Include="StringDetectorWebClient\img\alpha.png" />
     <Content Include="StringDetectorWebClient\img\avatars\1.png" />
@@ -271,7 +271,6 @@
     <Content Include="StringDetectorWebClient\js\app.js" />
     <Content Include="StringDetectorWebClient\js\bootstrap\bootstrap.js" />
     <Content Include="StringDetectorWebClient\js\bootstrap\bootstrap.min.js" />
-    <Content Include="StringDetectorWebClient\js\custom - 副本.js" />
     <Content Include="StringDetectorWebClient\js\custom.js" />
     <Content Include="StringDetectorWebClient\js\demo.js" />
     <Content Include="StringDetectorWebClient\js\libs\jquery-2.0.2.min.js" />
@@ -754,7 +753,6 @@
     <Content Include="StringDetectorWebClient\sound\bigbox.mp3" />
     <Content Include="StringDetectorWebClient\sound\messagebox.mp3" />
     <Content Include="StringDetectorWebClient\sound\smallbox.mp3" />
-    <Content Include="StringDetectorWebClient\widgets.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -777,6 +775,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="P4PluginPasswordEncryption\encrypt.bat" />
     <None Include="Properties\PublishProfiles\sdf.pubxml" />
     <Content Include="StringDetectorWebClient\ajax\demowidget.php" />
     <Content Include="StringDetectorWebClient\css\bootstrap.css.map" />
