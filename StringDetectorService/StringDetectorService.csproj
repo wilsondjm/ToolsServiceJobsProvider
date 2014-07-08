@@ -16,9 +16,9 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -103,7 +106,6 @@
     <Content Include="StringDetectorWebClient\datatables.html" />
     <Content Include="StringDetectorWebClient\fonts\fontawesome-webfont.svg" />
     <Content Include="StringDetectorWebClient\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="StringDetectorWebClient\forum.html" />
     <Content Include="StringDetectorWebClient\img\ajax-loader.gif" />
     <Content Include="StringDetectorWebClient\img\alpha.png" />
     <Content Include="StringDetectorWebClient\img\avatars\1.png" />
@@ -754,7 +756,6 @@
     <Content Include="StringDetectorWebClient\sound\bigbox.mp3" />
     <Content Include="StringDetectorWebClient\sound\messagebox.mp3" />
     <Content Include="StringDetectorWebClient\sound\smallbox.mp3" />
-    <Content Include="StringDetectorWebClient\widgets.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
