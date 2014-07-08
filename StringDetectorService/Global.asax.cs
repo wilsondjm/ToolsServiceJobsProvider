@@ -12,6 +12,7 @@ namespace StringDetectorService
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            log4net.Config.XmlConfigurator.Configure();
         }
     }
 }
