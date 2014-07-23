@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Basic\JobHistory.cs" />
+    <Compile Include="Basic\JobStatus.cs" />
+    <Compile Include="Utils\OperationResult.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Basic\JobConfiguration.cs" />
     <Compile Include="Basic\JobReports.cs" />

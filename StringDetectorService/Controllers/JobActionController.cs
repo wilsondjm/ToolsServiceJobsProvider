@@ -33,7 +33,7 @@ namespace StringDetectorService.Controllers
         {
             bool result = jobActionService.stopJob(JobName);
             if (result)
-                return Ok();
+                return Ok("Job Stoped");
             return BadRequest();
         }
     }

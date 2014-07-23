@@ -19,7 +19,7 @@ namespace ServiceLayer
 
         public JobReport getReport(string jobName, string buildName = "lastBuild", string offSet = "0")
         {
-            return jobsSRClient.FetchReport(jobName, offSet: offSet);
+            return jobsSRClient.FetchReport(jobName, buildName, offSet);
         }
 
 
