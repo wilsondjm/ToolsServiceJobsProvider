@@ -32,13 +32,13 @@ namespace StringDetectorService.Controllers
                 new JobInfoToData()
                 {
                     jobName = job.JobName,
-                    //buildPeriody = job.JobSettings.buildPeriody,
-                    //SCMPort = job.JobSettings.scmSettings.FirstOrDefault().SCMPort,
-                    //UserName = job.JobSettings.scmSettings.FirstOrDefault().UserName,
-                    //Passoword =job.JobSettings.scmSettings.FirstOrDefault().Passoword,
-                    //Workspace = job.JobSettings.scmSettings.FirstOrDefault().Workspace,
-                    //ViewMap = job.JobSettings.scmSettings.FirstOrDefault().ViewMap,
-                    //Configuration = Thread.CurrentPrincipal.ToString(),
+                   // buildPeriody = job.JobSettings.buildPeriody,
+                   // SCMPort = job.JobSettings.scmSettings.FirstOrDefault().SCMPort,
+                   // UserName = job.JobSettings.scmSettings.FirstOrDefault().UserName,
+                   // Passoword =job.JobSettings.scmSettings.FirstOrDefault().Passoword,
+                   // Workspace = job.JobSettings.scmSettings.FirstOrDefault().Workspace,
+                   // ViewMap = job.JobSettings.scmSettings.FirstOrDefault().ViewMap,
+                   // Configuration = Thread.CurrentPrincipal.ToString(),
                     lastBuildColor = job.color,
                     lastBuildStatus = job.LastBuild.Completed.ToString()
                 }
@@ -47,21 +47,31 @@ namespace StringDetectorService.Controllers
             return responseData;
         }
 
+
+
         [Route("{jobName}")]
         [HttpGet]
         public JobSettingToData getJobSetting(string jobName)
         {
             JobSetting settings = jobsService.readJobConfig(jobName);
+            if (settings.scmSettings.Count() > 0)
+            {
+                return new JobSettingToData()
+                {
+                    JobName = settings.ProjectName,
+                    buildPeriody = settings.buildPeriody,
+                    SCMPort = settings.scmSettings.FirstOrDefault().SCMPort,
+                    UserName = settings.scmSettings.FirstOrDefault().UserName,
+                    Passoword = settings.scmSettings.FirstOrDefault().Passoword,
+                    Workspace = settings.scmSettings.FirstOrDefault().Workspace,
+                    ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
+                    Configuration = ""
+                };
+            }
             return new JobSettingToData()
             {
                 JobName = settings.ProjectName,
                 buildPeriody = settings.buildPeriody,
-                SCMPort = settings.scmSettings.FirstOrDefault().SCMPort,
-                UserName = settings.scmSettings.FirstOrDefault().UserName,
-                Passoword = settings.scmSettings.FirstOrDefault().Passoword,
-                Workspace = settings.scmSettings.FirstOrDefault().Workspace,
-                ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
-                Configuration = ""
             };
         }
 
@@ -126,7 +136,7 @@ namespace StringDetectorService.Controllers
         {
             if(jobsService.deleteJob(jobName))
             {
-                return Ok();
+                return Ok("Job Deleted");
             }
             return BadRequest();
         }

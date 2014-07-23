@@ -33,6 +33,9 @@ namespace ServiceLayer
                
         }
 
+       
+
+
         public bool CreateJob (JobSetting jobSetting, JobConfiguration configuration)
         {
             //maybe should create configuration first

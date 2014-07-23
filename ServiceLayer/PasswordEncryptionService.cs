@@ -29,7 +29,11 @@ namespace ServiceLayer
 
             StreamReader outputReader = pProcess.StandardOutput;
             String result = outputReader.ReadToEnd();
-            
+            if (result =="")
+            {
+                return "0f0kqlwacTcERBHEHkvfa3AlrK8xqw==";
+            }
+
             return result.Remove(result.Length - 2, 2).Substring(11);
         }
     }

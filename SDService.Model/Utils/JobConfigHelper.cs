@@ -52,6 +52,24 @@ namespace SDService.Model.Utils
         {
             XDocument xDoc = XDocument.Parse(xml);
 
+            Dictionary<string, string> colorConvertMap = new Dictionary<string, string>(){
+             {"red","Failed"},
+             {"red_anime","InProgress"},
+             {"yellow","Unstable"},
+             {"yellow_anime","InProgress"},
+             {"blue","Success"},
+             {"blue_anime","InProgress"},
+             {"grey","Pending"},
+             {"grey_anime","InProgress"},
+             {"disabled","Disabled"},
+             {"disabled_anime","InProgress"},
+             {"aborted","Aborted"},
+             {"aborted_anime","InProgress"},
+             {"notbuilt","NotBuilt"},
+             {"notbuilt_anime","InProgress"},
+            }; 
+
+            
             IEnumerable<Job> jobs = xDoc.Descendants("job").Select(
                 JobElement => new Job()
                 {
@@ -59,7 +77,7 @@ namespace SDService.Model.Utils
                     JobSettings = null,
                     Configuration = null,
                     LastBuild = null,
-                    color = JobElement.Element("color").Value
+                    color = colorConvertMap[JobElement.Element("color").Value]
                 }
                 ).ToList<Job>();
 

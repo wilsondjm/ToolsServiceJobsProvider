@@ -49,7 +49,7 @@ namespace RequestClient
                         fullDisplayName = build.Element("fullDisplayName").Value,
                         id = build.Element("id").Value,
                         number = build.Element("number").Value,
-                        result = build.Element("result").Value
+                        result = build.Element("result")==null?"Pending":build.Element("result").Value
                     }
                 ).ToList<HistoryItem>();
                 XElement lastBuildElement = xDoc.Root.Element("lastBuild");
@@ -59,7 +59,7 @@ namespace RequestClient
                     fullDisplayName = lastBuildElement.Element("fullDisplayName").Value,
                     id = lastBuildElement.Element("id").Value,
                     number = lastBuildElement.Element("number").Value,
-                    result = lastBuildElement.Element("result").Value
+                    result = lastBuildElement.Element("result") == null ? "Pending" : lastBuildElement.Element("result").Value
                 };
             }
             return history;

@@ -44,6 +44,8 @@
     <Compile Include="JobHistoryService.cs" />
     <Compile Include="JobsService.cs" />
     <Compile Include="JobStatusReportService.cs" />
+    <Compile Include="JobStatusService.cs" />
+    <Compile Include="JobValidationService.cs" />
     <Compile Include="PasswordEncryptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

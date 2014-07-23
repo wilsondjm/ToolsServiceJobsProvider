@@ -82,6 +82,14 @@
     <Content Include="Global.asax" />
     <Content Include="P4PluginPasswordEncryption\Encryption.jar" />
     <Content Include="P4PluginPasswordEncryption\lib\commons-codec-1.9.jar" />
+    <Content Include="StringDetectorWebClient\.gitattributes" />
+    <Content Include="StringDetectorWebClient\.gitignore" />
+    <Content Include="StringDetectorWebClient\.idea\encodings.xml" />
+    <Content Include="StringDetectorWebClient\.idea\misc.xml" />
+    <Content Include="StringDetectorWebClient\.idea\modules.xml" />
+    <Content Include="StringDetectorWebClient\.idea\scopes\scope_settings.xml" />
+    <Content Include="StringDetectorWebClient\.idea\vcs.xml" />
+    <Content Include="StringDetectorWebClient\.idea\workspace.xml" />
     <Content Include="StringDetectorWebClient\ajax\email-compose.html" />
     <Content Include="StringDetectorWebClient\ajax\email-opened.html" />
     <Content Include="StringDetectorWebClient\ajax\email-reply.html" />
@@ -94,16 +102,20 @@
     <Content Include="StringDetectorWebClient\ajax\website-template.html" />
     <Content Include="StringDetectorWebClient\createjobform.html" />
     <Content Include="StringDetectorWebClient\css\bootstrap.css" />
+    <Content Include="StringDetectorWebClient\css\bootstrap.icons.css" />
     <Content Include="StringDetectorWebClient\css\bootstrap.min.css" />
     <Content Include="StringDetectorWebClient\css\custom.css" />
     <Content Include="StringDetectorWebClient\css\demo.css" />
     <Content Include="StringDetectorWebClient\css\font-awesome.min.css" />
     <Content Include="StringDetectorWebClient\css\invoice.css" />
+    <Content Include="StringDetectorWebClient\css\jquery.toolbars.css" />
     <Content Include="StringDetectorWebClient\css\lockscreen.css" />
     <Content Include="StringDetectorWebClient\css\smartadmin-production.css" />
     <Content Include="StringDetectorWebClient\css\smartadmin-production_unminified.css" />
     <Content Include="StringDetectorWebClient\css\smartadmin-rtl.css" />
     <Content Include="StringDetectorWebClient\css\smartadmin-skins.css" />
+    <Content Include="StringDetectorWebClient\css\style-responsive.css" />
+    <Content Include="StringDetectorWebClient\css\style.css" />
     <Content Include="StringDetectorWebClient\datatables.html" />
     <Content Include="StringDetectorWebClient\fonts\fontawesome-webfont.svg" />
     <Content Include="StringDetectorWebClient\fonts\glyphicons-halflings-regular.svg" />
@@ -271,11 +283,14 @@
     <Content Include="StringDetectorWebClient\img\superbox\superbox-thumb-8.jpg" />
     <Content Include="StringDetectorWebClient\img\superbox\superbox-thumb-9.jpg" />
     <Content Include="StringDetectorWebClient\index.html" />
+    <Content Include="StringDetectorWebClient\jobs.html" />
     <Content Include="StringDetectorWebClient\js\app.js" />
     <Content Include="StringDetectorWebClient\js\bootstrap\bootstrap.js" />
     <Content Include="StringDetectorWebClient\js\bootstrap\bootstrap.min.js" />
+    <Content Include="StringDetectorWebClient\js\buildDetailElementPrefix.js" />
     <Content Include="StringDetectorWebClient\js\custom.js" />
     <Content Include="StringDetectorWebClient\js\demo.js" />
+    <Content Include="StringDetectorWebClient\js\jobDetailElementPrefix.js" />
     <Content Include="StringDetectorWebClient\js\libs\jquery-2.0.2.min.js" />
     <Content Include="StringDetectorWebClient\js\libs\jquery-ui-1.10.3.min.js" />
     <Content Include="StringDetectorWebClient\js\notification\SmartNotification.js" />
@@ -667,6 +682,8 @@
     <Content Include="StringDetectorWebClient\js\plugin\jquery-form\jquery-form.min.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-nestable\jquery.nestable.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-timer\jquery.timer.js" />
+    <Content Include="StringDetectorWebClient\js\plugin\jquery-toolbar\jquery.toolbar.js" />
+    <Content Include="StringDetectorWebClient\js\plugin\jquery-toolbar\jquery.toolbar.min.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-touch\jquery.ui.touch-punch.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-touch\jquery.ui.touch-punch.min.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-validate\jquery.validate.min.js" />
@@ -765,7 +782,9 @@
     <Compile Include="Controllers\JobReportsController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobActionController.cs" />
+    <Compile Include="Controllers\JobStatusController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -774,12 +793,39 @@
     <Compile Include="ReqResModel\JobInfoToData.cs" />
     <Compile Include="ReqResModel\JobReportToData.cs" />
     <Compile Include="ReqResModel\JobSettingToData.cs" />
+    <Compile Include="ReqResModel\ValidationData.cs" />
     <Compile Include="Trace\CustomizedTraceWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="P4PluginPasswordEncryption\encrypt.bat" />
     <None Include="Properties\PublishProfiles\sdf.pubxml" />
+    <None Include="Properties\PublishProfiles\vhwebserver.pubxml" />
+    <Content Include="StringDetectorWebClient\.git\config" />
+    <Content Include="StringDetectorWebClient\.git\description" />
+    <Content Include="StringDetectorWebClient\.git\FETCH_HEAD" />
+    <Content Include="StringDetectorWebClient\.git\HEAD" />
+    <Content Include="StringDetectorWebClient\.git\hooks\applypatch-msg.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\commit-msg.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\post-update.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\pre-applypatch.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\pre-commit.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\pre-push.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\pre-rebase.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\prepare-commit-msg.sample" />
+    <Content Include="StringDetectorWebClient\.git\hooks\update.sample" />
+    <Content Include="StringDetectorWebClient\.git\index" />
+    <Content Include="StringDetectorWebClient\.git\info\exclude" />
+    <Content Include="StringDetectorWebClient\.git\logs\HEAD" />
+    <Content Include="StringDetectorWebClient\.git\logs\refs\heads\master" />
+    <Content Include="StringDetectorWebClient\.git\logs\refs\remotes\origin\HEAD" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-a2ce06223a4081135b97d0e4e38e1716384d15c2.idx" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-a2ce06223a4081135b97d0e4e38e1716384d15c2.pack" />
+    <Content Include="StringDetectorWebClient\.git\packed-refs" />
+    <Content Include="StringDetectorWebClient\.git\refs\heads\master" />
+    <Content Include="StringDetectorWebClient\.git\refs\remotes\origin\HEAD" />
+    <Content Include="StringDetectorWebClient\.idea\.name" />
+    <Content Include="StringDetectorWebClient\.idea\smartadminHTML.iml" />
     <Content Include="StringDetectorWebClient\ajax\demowidget.php" />
     <Content Include="StringDetectorWebClient\css\bootstrap.css.map" />
     <Content Include="StringDetectorWebClient\fonts\fontawesome-webfont.eot" />
@@ -836,6 +882,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="StringDetectorWebClient\.git\branches\" />
+    <Folder Include="StringDetectorWebClient\.git\objects\info\" />
+    <Folder Include="StringDetectorWebClient\.git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDService.Model\SDService.Model.csproj">
