@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace StringDetectorService.Controllers
 {
+    [RoutePrefix("api/jobs/{jobName}/configuration")]
     public class JobConfigurationController : ApiController
     {
         ConfigurationService configurationService;
@@ -19,7 +20,7 @@ namespace StringDetectorService.Controllers
             configurationService = new ConfigurationService();
         }
 
-        [Route("api/Configuration/{JobName}")]
+        [Route("")]
         [HttpGet]
         public JobConfigurationToData getConfiguration(string JobName)
         {
@@ -27,7 +28,7 @@ namespace StringDetectorService.Controllers
             return new JobConfigurationToData() { jobName = configuration.JobName, configuration = configuration.Configuration };
         }
 
-        [Route("api/Configuration/{JobName}")]
+        [Route("")]
         [HttpPost]
         public IHttpActionResult AddConfiguration(string JobName, JobConfigurationToData data)
         {
@@ -38,7 +39,7 @@ namespace StringDetectorService.Controllers
             return InternalServerError();
         }
 
-        [Route("api/Configuration/{JobName}")]
+        [Route("")]
         [HttpPut]
         public IHttpActionResult UpdateConfiguration(string JobName, JobConfigurationToData data)
         {
@@ -49,7 +50,7 @@ namespace StringDetectorService.Controllers
             return InternalServerError();
         }
 
-        [Route("api/Configuration/{JobName}")]
+        [Route("")]
         [HttpDelete]
         public IHttpActionResult DeleteConfiguration(string JobName)
         {

@@ -12,7 +12,7 @@ using System.Web.Http;
 
 namespace StringDetectorService.Controllers
 {
-    [RoutePrefix("api/jobs")]
+    [RoutePrefix("api/jobs/{jobName}/report/{buildName}")]
     public class JobReportsController : ApiController
     {
         JobStatusReportService reportService;
@@ -22,7 +22,7 @@ namespace StringDetectorService.Controllers
             reportService = new JobStatusReportService();
         }
 
-        [Route("{jobName}/Report/{buildName}")]
+        [Route("")]
         [HttpGet]
         public HttpResponseMessage FetchReport(string jobName, string buildName, [FromUri]string offset = "0")
         {
@@ -32,7 +32,7 @@ namespace StringDetectorService.Controllers
             return responseMessage;
         }
 
-        [Route("{jobName}/Report/file/{buildName}")]
+        [Route("file")]
         [HttpGet]
         public HttpResponseMessage FetchReportInFile(string jobName, string buildName, [FromUri]string offset = "0")
         {
