@@ -13,7 +13,7 @@ using System.Web.Http;
 
 namespace StringDetectorService.Controllers
 {
-    [RoutePrefix("api/Jobs")]
+    [RoutePrefix("api/jobs")]
     public class JobsController : ApiController
     {
         JobsService jobsService;
@@ -32,15 +32,11 @@ namespace StringDetectorService.Controllers
                 new JobInfoToData()
                 {
                     jobName = job.JobName,
-                   // buildPeriody = job.JobSettings.buildPeriody,
-                   // SCMPort = job.JobSettings.scmSettings.FirstOrDefault().SCMPort,
-                   // UserName = job.JobSettings.scmSettings.FirstOrDefault().UserName,
-                   // Passoword =job.JobSettings.scmSettings.FirstOrDefault().Passoword,
-                   // Workspace = job.JobSettings.scmSettings.FirstOrDefault().Workspace,
-                   // ViewMap = job.JobSettings.scmSettings.FirstOrDefault().ViewMap,
-                   // Configuration = Thread.CurrentPrincipal.ToString(),
-                    lastBuildColor = job.color,
-                    lastBuildStatus = job.LastBuild.Completed.ToString()
+                    setting = job.JobSettings,
+                    configuration = job.Configuration,
+                    builds = job.Builds,
+                    report = job.LastBuild,
+                    status = job.Status,
                 }
                 );
 
@@ -48,32 +44,26 @@ namespace StringDetectorService.Controllers
         }
 
 
-
         [Route("{jobName}")]
         [HttpGet]
-        public JobSettingToData getJobSetting(string jobName)
+        public JobInfoToData getJob(string jobName)
         {
-            JobSetting settings = jobsService.readJobConfig(jobName);
-            if (settings.scmSettings.Count() > 0)
-            {
-                return new JobSettingToData()
+            Job job = jobsService.GetJob(jobName);
+            JobInfoToData responseData =
+                new JobInfoToData()
                 {
-                    JobName = settings.ProjectName,
-                    buildPeriody = settings.buildPeriody,
-                    SCMPort = settings.scmSettings.FirstOrDefault().SCMPort,
-                    UserName = settings.scmSettings.FirstOrDefault().UserName,
-                    Passoword = settings.scmSettings.FirstOrDefault().Passoword,
-                    Workspace = settings.scmSettings.FirstOrDefault().Workspace,
-                    ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
-                    Configuration = ""
+                    jobName = job.JobName,
+                    setting = job.JobSettings,
+                    configuration = job.Configuration,
+                    builds = job.Builds,
+                    report = job.LastBuild,
+                    status = job.Status,
                 };
-            }
-            return new JobSettingToData()
-            {
-                JobName = settings.ProjectName,
-                buildPeriody = settings.buildPeriody,
-            };
+
+            return responseData;
         }
+
+       
 
         [Route("{jobName}")]
         [HttpPost]
@@ -84,7 +74,7 @@ namespace StringDetectorService.Controllers
             {
                 SCMPort = jobSettingData.SCMPort,
                 UserName = jobSettingData.UserName,
-                Passoword = new PasswordEncryptionService().encryptString(jobSettingData.Passoword, HttpContext.Current.Server.MapPath(""), "\\..\\.."),
+                Password = new PasswordEncryptionService().encryptString(jobSettingData.Passoword, HttpContext.Current.Server.MapPath(""), "\\..\\.."),
                 Workspace = jobSettingData.Workspace,
                 ViewMap = jobSettingData.ViewMap
             };
@@ -92,7 +82,7 @@ namespace StringDetectorService.Controllers
 
             if (jobsService.CreateJob(new JobSetting()
             {
-                ProjectName = jobName,
+                JobName = jobName,
                 buildPeriody = jobSettingData.buildPeriody,
                 scmSettings = scmList
             }, new JobConfiguration()
@@ -106,29 +96,7 @@ namespace StringDetectorService.Controllers
             return BadRequest("Failed to create the job.");
         }
 
-        [Route("{jobName}")]
-        [HttpPut]
-        public IHttpActionResult updateJobSetting(string jobName, JobSettingToData jobSettingData)
-        {
-            SCMSetting scmSetting = new SCMSetting()
-            {
-                SCMPort = jobSettingData.SCMPort,
-                UserName = jobSettingData.UserName,
-                Passoword = jobSettingData.Passoword,
-                Workspace = jobSettingData.Workspace,
-                ViewMap = jobSettingData.ViewMap
-            };
-            var scmList = new List<SCMSetting>(); scmList.Add(scmSetting);
-
-            if (jobsService.updateJobConfig(new JobSetting()
-            {
-                ProjectName = jobName,
-                buildPeriody = jobSettingData.buildPeriody,
-                scmSettings = scmList
-            }))
-                return Ok();
-            return BadRequest();
-        }
+       
 
         [Route("{jobName}")]
         [HttpDelete]

@@ -60,7 +60,7 @@ namespace RequestClient
             }
         }
 
-        public string getConfiguration(string projectName, string serverAddress = "10.158.2.66")
+        public JobConfiguration getConfiguration(string projectName, string serverAddress = "10.158.2.66")
         {
             string baseURL = "http://[SERVERADDRESS]/Configurations/[PROJECTNAME]";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[PROJECTNAME]", projectName);
@@ -70,7 +70,7 @@ namespace RequestClient
                 client.DefaultRequestHeaders.Accept.Clear();
                 HttpResponseMessage response = client.GetAsync(projectName).Result;
                 string responseContent = response.Content.ReadAsAsync<string>().Result;
-                return responseContent;
+                return  new JobConfiguration(){JobName = projectName,Configuration= responseContent};
             }
         }
 

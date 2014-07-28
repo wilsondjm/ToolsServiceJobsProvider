@@ -1,4 +1,5 @@
 ﻿using SDService.Model.Basic;
+using SDService.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +28,17 @@ namespace SDService.Model.Utils
             return p4JobConfig.ToString();
         }
 
-        public static JobSetting parseJobSettingsfromXml(string xml, string projectName)
+        public static JobSetting parseJobSettingsfromXml(string xml, string jobName)
         {
             XDocument xDoc = XDocument.Parse(xml);
             JobSetting jSetting = new JobSetting();
-            jSetting.ProjectName = projectName;
+            jSetting.JobName = jobName;
             jSetting.scmSettings = xDoc.Descendants("hudson.plugins.perforce.PerforceSCM").Select(
             SCMElement => new SCMSetting()
             {
                 SCMPort = SCMElement.Element("p4Port").Value,
                 UserName = SCMElement.Element("p4User").Value,
-                Passoword = SCMElement.Element("p4Passwd").Value,
+                Password = SCMElement.Element("p4Passwd").Value,
                 Workspace = SCMElement.Element("p4Client").Value,
                 ViewMap = SCMElement.Element("projectPath").Value,
             }).ToList<SCMSetting>();
@@ -52,36 +53,57 @@ namespace SDService.Model.Utils
         {
             XDocument xDoc = XDocument.Parse(xml);
 
-            Dictionary<string, string> colorConvertMap = new Dictionary<string, string>(){
-             {"red","Failed"},
-             {"red_anime","InProgress"},
-             {"yellow","Unstable"},
-             {"yellow_anime","InProgress"},
-             {"blue","Success"},
-             {"blue_anime","InProgress"},
-             {"grey","Pending"},
-             {"grey_anime","InProgress"},
-             {"disabled","Disabled"},
-             {"disabled_anime","InProgress"},
-             {"aborted","Aborted"},
-             {"aborted_anime","InProgress"},
-             {"notbuilt","NotBuilt"},
-             {"notbuilt_anime","InProgress"},
-            }; 
-
-            
             IEnumerable<Job> jobs = xDoc.Descendants("job").Select(
                 JobElement => new Job()
                 {
                     JobName = JobElement.Element("name").Value,
-                    JobSettings = null,
-                    Configuration = null,
-                    LastBuild = null,
-                    color = colorConvertMap[JobElement.Element("color").Value]
+                    //JobSettings = new JobSetting() { JobName = JobElement.Element("name").Value },
+                    //Configuration = new JobConfiguration() { JobName = JobElement.Element("name").Value },
+                    //Builds = new JobHistory() { JobName = JobElement.Element("name").Value },
+                    //LastBuild = new JobReport() { JobName = JobElement.Element("name").Value },
+                    Status = new JobStatus(){JobName = JobElement.Element("name").Value,
+                                             Status = Constants.ColorConvertMap[JobElement.Element("color").Value]
+                    } 
                 }
                 ).ToList<Job>();
 
             return jobs;
         }
+
+        public static Job parseJobFromXml(string xml,string jobName)
+        {
+            Job job = new Job() { JobName = jobName ,Builds = new JobHistory(){JobName = jobName},Status = new JobStatus(){JobName=jobName} };
+            XDocument xDoc = XDocument.Parse(xml);
+            var status = Constants.ColorConvertMap[xDoc.Root.Element("color").Value];
+            job.Status.Status = status;
+            if (status.Equals("NotBuilt", StringComparison.InvariantCultureIgnoreCase))
+            {
+                //no build history for this project
+                return job;
+            }
+
+            job.Builds.JobHistories = xDoc.Descendants("build").Select(
+                build => new HistoryItem()
+                {
+                    Duration = build.Element("duration").Value,
+                    FullDisplayName = build.Element("fullDisplayName").Value,
+                    Id = build.Element("id").Value,
+                    Number = build.Element("number").Value,
+                    Result = build.Element("result") == null ? "Pending" : build.Element("result").Value
+                }
+            ).ToList<HistoryItem>();
+            XElement lastBuildElement = xDoc.Root.Element("lastBuild");
+            job.Builds.LastBuild = new HistoryItem()
+            {
+                Duration = lastBuildElement.Element("duration").Value,
+                FullDisplayName = lastBuildElement.Element("fullDisplayName").Value,
+                Id = lastBuildElement.Element("id").Value,
+                Number = lastBuildElement.Element("number").Value,
+                Result = lastBuildElement.Element("result") == null ? "Pending" : lastBuildElement.Element("result").Value
+            };
+
+            return job;
+        }
+
     }
 }

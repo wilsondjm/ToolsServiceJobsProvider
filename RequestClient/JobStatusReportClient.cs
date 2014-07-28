@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace RequestClient
 {
-    public class JobStatusReportsClient
+    public class JobReportsClient
     {
         //   lastBuild
         StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/[BUILDNAME]/logText/progressiveText?start=[OFFSET]");
 
-        public JobStatusReportsClient(string serverAddress = "10.158.2.66:8080")
+        public JobReportsClient(string serverAddress = "10.158.2.66:8080")
         {
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
         }
@@ -32,15 +32,18 @@ namespace RequestClient
                 client.BaseAddress = new Uri(requestURL);
                 client.DefaultRequestHeaders.Accept.Clear();
                 HttpResponseMessage response = client.GetAsync("").Result;
-                System.Collections.Generic.IEnumerable<string> DataHeader;
+                if (response.IsSuccessStatusCode)
+                {
+                    System.Collections.Generic.IEnumerable<string> DataHeader;
 
-                string MoreData = response.Headers.TryGetValues("X-More-Data", out DataHeader) ? DataHeader.FirstOrDefault() : "false";
-                queryProject.Completed = MoreData.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? false : true;
+                    string MoreData = response.Headers.TryGetValues("X-More-Data", out DataHeader) ? DataHeader.FirstOrDefault() : "false";
+                    queryProject.Completed = MoreData.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? false : true;
 
-                string offset = response.Headers.GetValues("X-Text-Size").FirstOrDefault();
-                queryProject.Offset = Convert.ToInt32(offset);
+                    string offset = response.Headers.GetValues("X-Text-Size").FirstOrDefault();
+                    queryProject.Offset = Convert.ToInt32(offset);
 
-                queryProject.Report = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
+                    queryProject.Report = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
+                }
 
                 return queryProject;
             }

@@ -1,4 +1,5 @@
-﻿using ServiceLayer;
+﻿using SDService.Model;
+using ServiceLayer;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
@@ -22,8 +23,8 @@ namespace StringDetectorService.Controllers
         [HttpGet]
         public JobConfigurationToData getConfiguration(string JobName)
         {
-            string result = configurationService.getConfiguration(JobName);
-            return new JobConfigurationToData() { jobName = JobName, configuration = result};
+            JobConfiguration configuration = configurationService.getConfiguration(JobName);
+            return new JobConfigurationToData() { jobName = configuration.JobName, configuration = configuration.Configuration };
         }
 
         [Route("api/Configuration/{JobName}")]

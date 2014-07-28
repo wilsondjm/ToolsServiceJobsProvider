@@ -38,5 +38,22 @@ namespace SDService.Model.Utils
             + "<command>xcopy C:\\Projects\\StringDetector\\Configurations\\" + "[PROJECTNAME] \"%WORKSPACE%\\\" /c /y \n\"%WORKSPACE%/string_detector.exe\" .</command>"
             + "</hudson.tasks.BatchFile></builders><publishers/><buildWrappers/>"
             + "</project>";
+
+        public static Dictionary<string, string> ColorConvertMap = new Dictionary<string, string>(){
+             {"red","Failed"},
+             {"red_anime","InProgress"},
+             {"yellow","Unstable"},
+             {"yellow_anime","InProgress"},
+             {"blue","Success"},
+             {"blue_anime","InProgress"},
+             {"grey","Pending"},
+             {"grey_anime","InProgress"},
+             {"disabled","Disabled"},
+             {"disabled_anime","InProgress"},
+             {"aborted","Aborted"},
+             {"aborted_anime","InProgress"},
+             {"notbuilt","NotBuilt"},
+             {"notbuilt_anime","InProgress"},
+            };
     }
 }

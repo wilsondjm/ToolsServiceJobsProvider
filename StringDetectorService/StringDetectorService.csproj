@@ -785,6 +785,7 @@
     <Compile Include="Controllers\JobReportsController.cs" />
     <Compile Include="Controllers\JobsController.cs" />
     <Compile Include="Controllers\JobActionController.cs" />
+    <Compile Include="Controllers\JobSettingController.cs" />
     <Compile Include="Controllers\JobStatusController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />

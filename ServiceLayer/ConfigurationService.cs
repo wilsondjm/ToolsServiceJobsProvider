@@ -1,4 +1,5 @@
 ﻿using RequestClient;
+using SDService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace ServiceLayer
             return configurationClient.deleConfiguration(projectName);
         }
 
-        public string getConfiguration(string projectName)
+        public JobConfiguration getConfiguration(string projectName)
         {
             return configurationClient.getConfiguration(projectName);
         }

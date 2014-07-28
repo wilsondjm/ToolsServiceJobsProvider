@@ -8,23 +8,22 @@ using System.Threading.Tasks;
 namespace SDService.Model
 {
 
-    //public class Job
-    //{
-    //    public string JobName { set; get; }
-    //    public JobSetting JobSettings { set; get; }
-    //    public JobConfiguration Configuration { set; get; }
-    //    public JobReport LastBuild { set; get; }
-    //    public JobHistory Builds { set; get; }
-    //    public JobStatus status {get;set;}
-    //}
-
-
     public class Job
     {
         public string JobName { set; get; }
         public JobSetting JobSettings { set; get; }
         public JobConfiguration Configuration { set; get; }
         public JobReport LastBuild { set; get; }
-        public string color;
+        public JobHistory Builds { set; get; }
+        public JobStatus Status { get; set; }
     }
+
+    //public class Job
+    //{
+    //    public string JobName { set; get; }
+    //    public JobSetting JobSettings { set; get; }
+    //    public JobConfiguration Configuration { set; get; }
+    //    public JobReport LastBuild { set; get; }
+    //    public string color;
+    //}
 }

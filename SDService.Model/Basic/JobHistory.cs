@@ -8,18 +8,18 @@ namespace SDService.Model.Basic
 {
     public class JobHistory
     {
-        public string jobName { set; get; }
-        public IEnumerable<HistoryItem> jobHistories { set; get; }
-        public HistoryItem lastBuild { set; get; }
-        public string colorStatus { set; get; }
+        public string JobName { set; get; }
+        public IEnumerable<HistoryItem> JobHistories { set; get; }
+        public HistoryItem LastBuild { set; get; }
+      //  public string colorStatus { set; get; }
     }
 
     public class HistoryItem
     {
-        public string duration { set; get; }
-        public string fullDisplayName { set; get; }
-        public string id { set; get; }
-        public string number { set; get; }
-        public string result { set; get; }
+        public string Duration { set; get; }
+        public string FullDisplayName { set; get; }
+        public string Id { set; get; }
+        public string Number { set; get; }
+        public string Result { set; get; }
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="JobActionClient.cs" />
     <Compile Include="JobHistoryClient.cs" />
     <Compile Include="JobsClient.cs" />
+    <Compile Include="JobSettingClient.cs" />
     <Compile Include="JobStatusClient.cs" />
     <Compile Include="JobStatusReportClient.cs" />
     <Compile Include="JobValidationClient.cs" />

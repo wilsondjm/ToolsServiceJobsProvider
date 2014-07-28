@@ -42,6 +42,7 @@
     <Compile Include="ConfigurationService.cs" />
     <Compile Include="JobActionService.cs" />
     <Compile Include="JobHistoryService.cs" />
+    <Compile Include="JobSettingService.cs" />
     <Compile Include="JobsService.cs" />
     <Compile Include="JobStatusReportService.cs" />
     <Compile Include="JobStatusService.cs" />

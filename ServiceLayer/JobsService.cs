@@ -11,29 +11,54 @@ namespace ServiceLayer
     public class JobsService
     {
         JobsClient jobsClient;
+        JobSettingClient settingClient;
         ConfigurationClient configClient;
-        JobStatusReportsClient statusReportClient;
+        JobHistoryClient historyClient;
+        JobReportsClient reportClient;
 
         public JobsService()
         {
             jobsClient = new JobsClient();
+            settingClient = new JobSettingClient();
             configClient = new ConfigurationClient();
-            statusReportClient = new JobStatusReportsClient();
+            historyClient = new JobHistoryClient();
+            reportClient = new JobReportsClient();
         }
 
         public IEnumerable<Job> GetAllJobs()
         {
             //More work needs to be done here to provide more job information
+            // Get job name and stauts
             IEnumerable<Job> jobs = jobsClient.QueryAllSDJobs();
+
             foreach (Job job in jobs)
             {
-                job.LastBuild = statusReportClient.FetchReport(job.JobName);
+                //Get JobSetting
+                job.JobSettings =settingClient.QueryJobSetting(job.JobName);
+                //Get JobConfiguration
+                job.Configuration = configClient.getConfiguration(job.JobName);
+                //Get Job Build History
+                job.Builds = historyClient.getJobHistory(job.JobName);
+                //Get Job LastBuild
+                job.LastBuild = reportClient.FetchReport(job.JobName);
             }
             return jobs;
-               
         }
 
-       
+
+        public Job GetJob(string jobName)
+        {
+            // get jobName jobStatus Builds
+            Job job  = jobsClient.QueryJob(jobName);
+            //Get JobSetting
+            job.JobSettings = settingClient.QueryJobSetting(job.JobName);
+            //Get JobConfiguration
+            job.Configuration = configClient.getConfiguration(job.JobName);
+            //Get Job LastBuild
+            job.LastBuild = reportClient.FetchReport(job.JobName);
+            return job;
+        }
+
 
 
         public bool CreateJob (JobSetting jobSetting, JobConfiguration configuration)
@@ -47,14 +72,6 @@ namespace ServiceLayer
             return jobsClient.DeleteJob(projectName);
         }
 
-        public bool updateJobConfig(JobSetting jobSetting)
-        {
-            return jobsClient.UpdateJob(jobSetting);
-        }
-
-        public JobSetting readJobConfig(string jobName)
-        {
-            return jobsClient.QueryJobSetting(jobName);
-        }
+       
     }
 }

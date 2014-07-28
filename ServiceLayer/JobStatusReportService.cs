@@ -10,11 +10,11 @@ namespace ServiceLayer
 {
     public class JobStatusReportService
     {
-        JobStatusReportsClient jobsSRClient;
+        JobReportsClient jobsSRClient;
 
         public JobStatusReportService()
         {
-            jobsSRClient = new JobStatusReportsClient();// there is a default serverAddress
+            jobsSRClient = new JobReportsClient();// there is a default serverAddress
         }
 
         public JobReport getReport(string jobName, string buildName = "lastBuild", string offSet = "0")

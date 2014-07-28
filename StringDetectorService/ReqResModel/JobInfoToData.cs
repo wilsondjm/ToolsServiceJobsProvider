@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SDService.Model;
+using SDService.Model.Basic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,14 +10,10 @@ namespace StringDetectorService.ReqResModel
     public class JobInfoToData
     {
         public string jobName { set; get; }
-       // public string buildPeriody { set; get; }
-       // public string SCMPort { set; get; }
-       // public string UserName { set; get; }
-       // public string Passoword { set; get; }
-       // public string Workspace { set; get; }
-      //  public string ViewMap { set; get; }
-        //public string Configuration { set; get; }
-        public string lastBuildColor { set; get; }
-        public string lastBuildStatus { set; get; }
+        public JobSetting setting { set; get; }
+        public JobConfiguration configuration { set; get; }
+        public JobHistory builds { set; get; }
+        public JobReport report { set; get; }
+        public JobStatus status { set; get; }
     }
 }
