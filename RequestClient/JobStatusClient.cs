@@ -50,7 +50,7 @@ namespace RequestClient
                 string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
 
                 XDocument xDoc = XDocument.Parse(xml);
-                status.Color = colorConvertMap[xDoc.Root.Element("color").Value];
+                status.Status = colorConvertMap[xDoc.Root.Element("color").Value];
                
             }
             return status;

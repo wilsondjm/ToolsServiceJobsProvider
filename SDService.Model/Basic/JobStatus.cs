@@ -9,6 +9,6 @@ namespace SDService.Model.Basic
    public  class JobStatus
     {
         public string JobName { set; get; }
-        public string Color { set; get; }
+        public string Status { set; get; }
     }
 }
