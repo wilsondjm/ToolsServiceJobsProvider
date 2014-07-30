@@ -1,4 +1,5 @@
 ﻿using SDService.Model;
+using SDService.Model.Utils;
 using ServiceLayer;
 using StringDetectorService.ReqResModel;
 using System;
@@ -30,35 +31,45 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult AddConfiguration(string JobName, JobConfigurationToData data)
+        public HttpResponseMessage AddConfiguration(string JobName, JobConfigurationToData data)
         {
             bool result = configurationService.addConfiguration(JobName, data.configuration);
 
             if (result)
-                return Ok();
-            return InternalServerError();
+            {
+                //JobConfiguration configuration = configurationService.getConfiguration(JobName);
+                JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                return Request.CreateResponse(HttpStatusCode.OK, responseData);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.AddConfigurationFailed);
         }
 
         [Route("")]
         [HttpPut]
-        public IHttpActionResult UpdateConfiguration(string JobName, JobConfigurationToData data)
+        public HttpResponseMessage UpdateConfiguration(string JobName, JobConfigurationToData data)
         {
             bool result = configurationService.updateConfiguration(JobName, data.configuration);
 
             if (result)
-                return Ok();
-            return InternalServerError();
+            {
+                //JobConfiguration configuration = configurationService.getConfiguration(JobName);
+                JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                return Request.CreateResponse(HttpStatusCode.OK, responseData);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.UpdateConfigurationFailed);
         }
 
         [Route("")]
         [HttpDelete]
-        public IHttpActionResult DeleteConfiguration(string JobName)
+        public HttpResponseMessage DeleteConfiguration(string JobName)
         {
             bool result = configurationService.deleteConfiguration(JobName);
 
             if (result)
-                return Ok();
-            return InternalServerError();
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, JobName);
+            }
+            return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.DeleteConfigurationFailed);
         }
 
 

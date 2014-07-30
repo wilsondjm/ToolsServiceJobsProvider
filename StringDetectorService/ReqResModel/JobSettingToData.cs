@@ -14,6 +14,5 @@ namespace StringDetectorService.ReqResModel
         public string Passoword { set; get; }
         public string Workspace { set; get; }
         public string ViewMap { set; get; }
-        public string Configuration { set; get; }
     }
 }

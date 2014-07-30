@@ -1,5 +1,6 @@
 ﻿using SDService.Model;
 using SDService.Model.Basic;
+using SDService.Model.Utils;
 using ServiceLayer;
 using StringDetectorService.ReqResModel;
 using System;
@@ -36,7 +37,6 @@ namespace StringDetectorService.Controllers
                     Passoword = settings.scmSettings.FirstOrDefault().Password,
                     Workspace = settings.scmSettings.FirstOrDefault().Workspace,
                     ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
-                    Configuration = ""
                 };
             }
             return new JobSettingToData()
@@ -48,7 +48,7 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPut]
-        public IHttpActionResult updateJobSetting(string jobName, JobSettingToData jobSettingData)
+        public HttpResponseMessage updateJobSetting(string jobName, JobSettingToData jobSettingData)
         {
             SCMSetting scmSetting = new SCMSetting()
             {
@@ -59,15 +59,28 @@ namespace StringDetectorService.Controllers
                 ViewMap = jobSettingData.ViewMap
             };
             var scmList = new List<SCMSetting>(); scmList.Add(scmSetting);
-
-            if (jobSettingService.updateJobSetting(new JobSetting()
+            JobSetting jobSetting = new JobSetting()
             {
                 JobName = jobName,
                 buildPeriody = jobSettingData.buildPeriody,
                 scmSettings = scmList
-            }))
-                return Ok();
-            return BadRequest();
+            };
+
+            if (jobSettingService.updateJobSetting(jobSetting))
+            {
+                JobSettingToData responseData = new JobSettingToData()
+                {
+                    JobName = jobSetting.JobName,
+                    buildPeriody = jobSetting.buildPeriody,
+                    SCMPort = jobSetting.scmSettings.FirstOrDefault().SCMPort,
+                    UserName = jobSetting.scmSettings.FirstOrDefault().UserName,
+                    Passoword = jobSetting.scmSettings.FirstOrDefault().Password,
+                    Workspace = jobSetting.scmSettings.FirstOrDefault().Workspace,
+                    ViewMap = jobSetting.scmSettings.FirstOrDefault().ViewMap,
+                };
+                return Request.CreateResponse(HttpStatusCode.OK, responseData);
+           }
+            return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.UpdateSettingsFailed);
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using SDService.Model;
 using SDService.Model.Basic;
+using SDService.Model.Utils;
 using ServiceLayer;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -27,7 +29,9 @@ namespace StringDetectorService.Controllers
         [HttpGet]
         public IEnumerable<JobInfoToData> getAllJobs()
         {
-            IEnumerable<Job> Jobs = jobsService.GetAllJobs();
+           Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
+
+            IEnumerable<Job> Jobs = jobsService.GetAllJobs(fields);
             IEnumerable<JobInfoToData> responseData =  Jobs.Select(job =>
                 new JobInfoToData()
                 {
@@ -48,7 +52,8 @@ namespace StringDetectorService.Controllers
         [HttpGet]
         public JobInfoToData getJob(string jobName)
         {
-            Job job = jobsService.GetJob(jobName);
+            Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
+            Job job = jobsService.GetJob(jobName,fields);
             JobInfoToData responseData =
                 new JobInfoToData()
                 {
@@ -67,9 +72,9 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpPost]
-        public IHttpActionResult createJob(string jobName, JobSettingToData jobSettingData)
+        public HttpResponseMessage createJob(string jobName, JobSettingToData jobSettingData)
         {
-            
+            Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             SCMSetting scmSetting = new SCMSetting()
             {
                 SCMPort = jobSettingData.SCMPort,
@@ -88,25 +93,37 @@ namespace StringDetectorService.Controllers
             }, new JobConfiguration()
             {
                 JobName = jobName,
-                Configuration = jobSettingData.Configuration
+                Configuration = Constants.DefaultConfiguration
             }))
             {
-                return this.Ok();
+                Job job = jobsService.GetJob(jobName,fields);
+                JobInfoToData responseData =
+                                new JobInfoToData()
+                                {
+                                    jobName = job.JobName,
+                                    setting = job.JobSettings,
+                                    configuration = job.Configuration,
+                                    builds = job.Builds,
+                                    report = job.LastBuild,
+                                    status = job.Status,
+                                };
+
+                return Request.CreateResponse(HttpStatusCode.OK, responseData);
             }
-            return BadRequest("Failed to create the job.");
+            return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.CreateActionFailed);
         }
 
        
 
         [Route("{jobName}")]
         [HttpDelete]
-        public IHttpActionResult deleteJob(string jobName)
+        public HttpResponseMessage deleteJob(string jobName)
         {
             if(jobsService.deleteJob(jobName))
             {
-                return Ok("Job Deleted");
+                return Request.CreateResponse(HttpStatusCode.OK, jobName);
             }
-            return BadRequest();
+            return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.DeleteActionFailed);
         }
     }
 }
