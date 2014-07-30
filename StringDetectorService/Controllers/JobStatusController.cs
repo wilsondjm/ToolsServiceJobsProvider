@@ -1,5 +1,6 @@
 ﻿using SDService.Model.Basic;
 using ServiceLayer;
+using StringDetectorService.Hubs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Web.Http;
 
 namespace StringDetectorService.Controllers
 {
-    public class JobStatusController : ApiController
+    public class JobStatusController : ApiControllerWithHub<JobHub>
     {
          private JobStatusService statusService;
 

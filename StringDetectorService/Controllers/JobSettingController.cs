@@ -2,6 +2,7 @@
 using SDService.Model.Basic;
 using SDService.Model.Utils;
 using ServiceLayer;
+using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Web.Http;
 namespace StringDetectorService.Controllers
 {
     [RoutePrefix("api/jobs/{jobName}/setting")]
-    public class JobSettingController : ApiController
+    public class JobSettingController : ApiControllerWithHub<JobHub>
     {
         JobSettingService jobSettingService;
         public JobSettingController()
@@ -48,7 +49,7 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPut]
-        public HttpResponseMessage updateJobSetting(string jobName, JobSettingToData jobSettingData)
+        public HttpResponseMessage updateJobSetting(string jobName, JobSettingToData jobSettingData, bool realtime =false)
         {
             SCMSetting scmSetting = new SCMSetting()
             {
@@ -78,6 +79,12 @@ namespace StringDetectorService.Controllers
                     Workspace = jobSetting.scmSettings.FirstOrDefault().Workspace,
                     ViewMap = jobSetting.scmSettings.FirstOrDefault().ViewMap,
                 };
+                if (realtime)
+                {
+                    // we will try to set partital response for real time next version
+                    Hub.Clients.All.updateJobSettingCallBack(responseData);
+                }
+
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
            }
             return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.UpdateSettingsFailed);

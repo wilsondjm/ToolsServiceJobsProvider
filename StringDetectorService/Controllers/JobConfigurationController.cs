@@ -1,6 +1,7 @@
 ﻿using SDService.Model;
 using SDService.Model.Utils;
 using ServiceLayer;
+using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Web.Http;
 namespace StringDetectorService.Controllers
 {
     [RoutePrefix("api/jobs/{jobName}/configuration")]
-    public class JobConfigurationController : ApiController
+    public class JobConfigurationController : ApiControllerWithHub<JobHub>
     {
         ConfigurationService configurationService;
 
@@ -31,7 +32,7 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPost]
-        public HttpResponseMessage AddConfiguration(string JobName, JobConfigurationToData data)
+        public HttpResponseMessage AddConfiguration(string JobName, JobConfigurationToData data, bool realtime)
         {
             bool result = configurationService.addConfiguration(JobName, data.configuration);
 
@@ -39,6 +40,11 @@ namespace StringDetectorService.Controllers
             {
                 //JobConfiguration configuration = configurationService.getConfiguration(JobName);
                 JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                if (realtime)
+                {
+                    // we will try to set partital response for real time next version
+                    Hub.Clients.All.addConfigurationCallBack(responseData);
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.AddConfigurationFailed);
@@ -46,7 +52,7 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPut]
-        public HttpResponseMessage UpdateConfiguration(string JobName, JobConfigurationToData data)
+        public HttpResponseMessage UpdateConfiguration(string JobName, JobConfigurationToData data,bool realtime =false)
         {
             bool result = configurationService.updateConfiguration(JobName, data.configuration);
 
@@ -54,6 +60,11 @@ namespace StringDetectorService.Controllers
             {
                 //JobConfiguration configuration = configurationService.getConfiguration(JobName);
                 JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                if (realtime)
+                {
+                    // we will try to set partital response for real time next version
+                    Hub.Clients.All.updateConfigurationCallBack(responseData);
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.UpdateConfigurationFailed);
@@ -61,12 +72,17 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpDelete]
-        public HttpResponseMessage DeleteConfiguration(string JobName)
+        public HttpResponseMessage DeleteConfiguration(string JobName,bool realtime=false)
         {
             bool result = configurationService.deleteConfiguration(JobName);
 
             if (result)
             {
+                if (realtime)
+                {
+                    // we will try to set partital response for real time next version
+                    Hub.Clients.All.deleteConfigurationCallBack(JobName);
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, JobName);
             }
             return Request.CreateResponse(HttpStatusCode.InternalServerError, Constants.DeleteConfigurationFailed);

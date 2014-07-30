@@ -1,6 +1,7 @@
 ﻿using SDService.Model;
 using SDService.Model.Utils;
 using ServiceLayer;
+using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ using System.Web.Http;
 
 namespace StringDetectorService.Controllers
 {
-    public class JobActionController : ApiController
+    public class JobActionController : ApiControllerWithHub<JobHub>
     {
         JobActionService jobActionService;
         JobsService jobsService;
@@ -25,7 +26,7 @@ namespace StringDetectorService.Controllers
 
         [Route("api/Jobs/{JobName}/start")]
         [HttpPost]
-        public HttpResponseMessage StartJob(string JobName)
+        public HttpResponseMessage StartJob(string JobName,bool realtime =false)
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             bool result = jobActionService.startJob(JobName);
@@ -42,7 +43,11 @@ namespace StringDetectorService.Controllers
                                    report = job.LastBuild,
                                    status = job.Status,
                                };
-
+               if (realtime)
+               {
+                   // we will try to set partital response for real time next version
+                   Hub.Clients.All.startJobCallBack(responseData);
+               }
                return Request.CreateResponse(HttpStatusCode.OK,responseData);
             }
             return Request.CreateResponse(HttpStatusCode.BadRequest,Constants.StartActionFailed);
@@ -50,7 +55,7 @@ namespace StringDetectorService.Controllers
 
         [Route("api/Jobs/{JobName}/stop")]
         [HttpDelete]
-        public HttpResponseMessage StopJob(string JobName)
+        public HttpResponseMessage StopJob(string JobName,bool realtime =false)
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             bool result = jobActionService.stopJob(JobName);
@@ -67,6 +72,11 @@ namespace StringDetectorService.Controllers
                                     report = job.LastBuild,
                                     status = job.Status,
                                 };
+                if (realtime)
+                {
+                    // we will try to set partital response for real time next version
+                    Hub.Clients.All.stopJobCallBack(responseData);
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
             }
             return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.StopActionFailed);

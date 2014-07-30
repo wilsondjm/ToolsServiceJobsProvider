@@ -1,5 +1,6 @@
 ﻿using SDService.Model;
 using ServiceLayer;
+using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Web.Http;
 namespace StringDetectorService.Controllers
 {
     [RoutePrefix("api/jobs/{jobName}/report/{buildName}")]
-    public class JobReportsController : ApiController
+    public class JobReportsController : ApiControllerWithHub<JobHub>
     {
         JobStatusReportService reportService;
 
