@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SDService.Model;
 using System.Text;
 using System.Net.Http;
+using System.Diagnostics;
 
 namespace StringDetectorService.Hubs
 {
@@ -40,33 +41,39 @@ namespace StringDetectorService.Hubs
             baseURL.Replace("[SERVERADDRESS]", "10.158.2.66:8080");
             string requestURL = baseURL.ToString();
             bool completed = false;
-
+           
             while (!completed)
             {
-            using (var client = new HttpClient())
-            {
+                // wait for 2 seconds
+                Stopwatch s = new Stopwatch();
+                s.Start();
+                while (s.Elapsed < TimeSpan.FromSeconds(2))
+                {
+                }
+                s.Stop();
+                using (var client = new HttpClient())
+                {
                
-                    client.BaseAddress = new Uri(requestURL+offset);
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    HttpResponseMessage response = client.GetAsync("").Result;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        System.Collections.Generic.IEnumerable<string> DataHeader;
+                        client.BaseAddress = new Uri(requestURL+offset);
+                        client.DefaultRequestHeaders.Accept.Clear();
+                        HttpResponseMessage response = client.GetAsync("").Result;
+                        if (response.IsSuccessStatusCode)
+                        {
+                            System.Collections.Generic.IEnumerable<string> DataHeader;
 
-                        string MoreData = response.Headers.TryGetValues("X-More-Data", out DataHeader) ? DataHeader.FirstOrDefault() : "false";
-                        completed = MoreData.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? false : true;
+                            string MoreData = response.Headers.TryGetValues("X-More-Data", out DataHeader) ? DataHeader.FirstOrDefault() : "false";
+                            completed = MoreData.Equals("true", StringComparison.InvariantCultureIgnoreCase) ? false : true;
 
-                        offset = response.Headers.GetValues("X-Text-Size").FirstOrDefault();
+                            offset = response.Headers.GetValues("X-Text-Size").FirstOrDefault();
 
-                        string report = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-                        Clients.Caller.appendReport(jobName,report);
-                    }
-                    //await 
-                
-
-               // Clients.Caller.showReport();
+                            string report = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
+                            Clients.All.appendReport(jobName,report);
+                        }
+                        //await 
+                }
             }
-            }
+
+             Clients.All.updateReportCallback(jobName);
         }
        
     }
