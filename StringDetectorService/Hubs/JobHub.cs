@@ -41,6 +41,7 @@ namespace StringDetectorService.Hubs
             baseURL.Replace("[SERVERADDRESS]", "10.158.2.66:8080");
             string requestURL = baseURL.ToString();
             bool completed = false;
+            
            
             while (!completed)
             {
@@ -67,7 +68,7 @@ namespace StringDetectorService.Hubs
                             offset = response.Headers.GetValues("X-Text-Size").FirstOrDefault();
 
                             string report = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-                            Clients.All.appendReport(jobName,report);
+                            Clients.Caller.appendReport(jobName,report);
                         }
                         //await 
                 }
