@@ -832,6 +832,7 @@
     <Content Include="P4PluginPasswordEncryption\encrypt.bat" />
     <None Include="Properties\PublishProfiles\sdf.pubxml" />
     <None Include="Properties\PublishProfiles\vhwebserver.pubxml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="StringDetectorWebClient\.git\config" />
     <Content Include="StringDetectorWebClient\.git\description" />
     <Content Include="StringDetectorWebClient\.git\FETCH_HEAD" />
@@ -849,12 +850,16 @@
     <Content Include="StringDetectorWebClient\.git\info\exclude" />
     <Content Include="StringDetectorWebClient\.git\logs\HEAD" />
     <Content Include="StringDetectorWebClient\.git\logs\refs\heads\master" />
+    <Content Include="StringDetectorWebClient\.git\logs\refs\heads\TempDev" />
     <Content Include="StringDetectorWebClient\.git\logs\refs\remotes\origin\HEAD" />
-    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-a2ce06223a4081135b97d0e4e38e1716384d15c2.idx" />
-    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-a2ce06223a4081135b97d0e4e38e1716384d15c2.pack" />
+    <Content Include="StringDetectorWebClient\.git\logs\refs\remotes\origin\TempDev" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-d1fa92c6bf6de120483424013d2a78b186a2b5c3.idx" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-d1fa92c6bf6de120483424013d2a78b186a2b5c3.pack" />
     <Content Include="StringDetectorWebClient\.git\packed-refs" />
     <Content Include="StringDetectorWebClient\.git\refs\heads\master" />
+    <Content Include="StringDetectorWebClient\.git\refs\heads\TempDev" />
     <Content Include="StringDetectorWebClient\.git\refs\remotes\origin\HEAD" />
+    <Content Include="StringDetectorWebClient\.git\refs\remotes\origin\TempDev" />
     <Content Include="StringDetectorWebClient\.idea\.name" />
     <Content Include="StringDetectorWebClient\.idea\smartadminHTML.iml" />
     <Content Include="StringDetectorWebClient\ajax\demowidget.php" />
@@ -904,7 +909,6 @@
     <Content Include="StringDetectorWebClient\sound\php\demo-contacts.php" />
     <Content Include="StringDetectorWebClient\sound\php\demo-register.php" />
     <Content Include="StringDetectorWebClient\sound\smallbox.ogg" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

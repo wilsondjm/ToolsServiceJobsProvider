@@ -32,10 +32,10 @@ namespace StringDetectorService.Controllers
                 return new JobSettingToData()
                 {
                     JobName = settings.JobName,
-                    buildPeriody = settings.buildPeriody,
+                    BuildPeriody = settings.buildPeriody,
                     SCMPort = settings.scmSettings.FirstOrDefault().SCMPort,
                     UserName = settings.scmSettings.FirstOrDefault().UserName,
-                    Passoword = settings.scmSettings.FirstOrDefault().Password,
+                    Password = settings.scmSettings.FirstOrDefault().Password,
                     Workspace = settings.scmSettings.FirstOrDefault().Workspace,
                     ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
                 };
@@ -43,7 +43,7 @@ namespace StringDetectorService.Controllers
             return new JobSettingToData()
             {
                 JobName = settings.JobName,
-                buildPeriody = settings.buildPeriody,
+                BuildPeriody = settings.buildPeriody,
             };
         }
 
@@ -55,7 +55,7 @@ namespace StringDetectorService.Controllers
             {
                 SCMPort = jobSettingData.SCMPort,
                 UserName = jobSettingData.UserName,
-                Password = jobSettingData.Passoword,
+                Password = jobSettingData.Password,
                 Workspace = jobSettingData.Workspace,
                 ViewMap = jobSettingData.ViewMap
             };
@@ -63,7 +63,7 @@ namespace StringDetectorService.Controllers
             JobSetting jobSetting = new JobSetting()
             {
                 JobName = jobName,
-                buildPeriody = jobSettingData.buildPeriody,
+                buildPeriody = jobSettingData.BuildPeriody,
                 scmSettings = scmList
             };
 
@@ -72,10 +72,10 @@ namespace StringDetectorService.Controllers
                 JobSettingToData responseData = new JobSettingToData()
                 {
                     JobName = jobSetting.JobName,
-                    buildPeriody = jobSetting.buildPeriody,
+                    BuildPeriody = jobSetting.buildPeriody,
                     SCMPort = jobSetting.scmSettings.FirstOrDefault().SCMPort,
                     UserName = jobSetting.scmSettings.FirstOrDefault().UserName,
-                    Passoword = jobSetting.scmSettings.FirstOrDefault().Password,
+                    Password = jobSetting.scmSettings.FirstOrDefault().Password,
                     Workspace = jobSetting.scmSettings.FirstOrDefault().Workspace,
                     ViewMap = jobSetting.scmSettings.FirstOrDefault().ViewMap,
                 };

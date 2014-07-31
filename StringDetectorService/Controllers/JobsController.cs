@@ -54,6 +54,7 @@ namespace StringDetectorService.Controllers
         [HttpGet]
         public JobInfoToData getJob(string jobName)
         {
+           // Hub.Clients.User(userId)
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             Job job = jobsService.GetJob(jobName,fields);
             JobInfoToData responseData =
@@ -66,7 +67,7 @@ namespace StringDetectorService.Controllers
                     report = job.LastBuild,
                     status = job.Status,
                 };
-
+           // Hub.Clients.All.hello("ok");
             return responseData;
         }
 
@@ -81,7 +82,7 @@ namespace StringDetectorService.Controllers
             {
                 SCMPort = jobSettingData.SCMPort,
                 UserName = jobSettingData.UserName,
-                Password = new PasswordEncryptionService().encryptString(jobSettingData.Passoword, HttpContext.Current.Server.MapPath(""), "\\..\\.."),
+                Password = new PasswordEncryptionService().encryptString(jobSettingData.Password, HttpContext.Current.Server.MapPath(""), "\\..\\.."),
                 Workspace = jobSettingData.Workspace,
                 ViewMap = jobSettingData.ViewMap
             };
@@ -90,7 +91,7 @@ namespace StringDetectorService.Controllers
             if (jobsService.CreateJob(new JobSetting()
             {
                 JobName = jobName,
-                buildPeriody = jobSettingData.buildPeriody,
+                buildPeriody = jobSettingData.BuildPeriody,
                 scmSettings = scmList
             }, new JobConfiguration()
             {
