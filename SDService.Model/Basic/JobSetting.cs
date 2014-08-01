@@ -10,7 +10,7 @@ namespace SDService.Model
     public class JobSetting
     {
         public string JobName { get; set; }
-        public IEnumerable<SCMSetting> scmSettings {get;set;}
-        public string buildPeriody {get;set;}
+        public IEnumerable<SCMSetting> ScmSettings {get;set;}
+        public string BuildPeriody {get;set;}
     }
 }

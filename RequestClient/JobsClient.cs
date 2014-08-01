@@ -50,7 +50,7 @@ namespace RequestClient
 
         public bool createJob(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
-            SCMSetting firstSetting = jSetting.scmSettings.FirstOrDefault();
+            SCMSetting firstSetting = jSetting.ScmSettings.FirstOrDefault();
 
             string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
                 jSetting.JobName,
@@ -59,7 +59,7 @@ namespace RequestClient
                 firstSetting.SCMPort,
                 firstSetting.Workspace,
                 firstSetting.ViewMap,
-                jSetting.buildPeriody
+                jSetting.BuildPeriody
             );
             string baseURL = "http://[SERVERADDRESS]/createItem?name=[PROJECTNAME]";
             string requestURL = baseURL.Replace("[PROJECTNAME]", jSetting.JobName);

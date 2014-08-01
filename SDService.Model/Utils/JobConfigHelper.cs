@@ -33,7 +33,7 @@ namespace SDService.Model.Utils
             XDocument xDoc = XDocument.Parse(xml);
             JobSetting jSetting = new JobSetting();
             jSetting.JobName = jobName;
-            jSetting.scmSettings = xDoc.Descendants("hudson.plugins.perforce.PerforceSCM").Select(
+            jSetting.ScmSettings = xDoc.Descendants("hudson.plugins.perforce.PerforceSCM").Select(
             SCMElement => new SCMSetting()
             {
                 SCMPort = SCMElement.Element("p4Port").Value,
@@ -45,7 +45,7 @@ namespace SDService.Model.Utils
             IEnumerable<string> buildPeriodyNodes = xDoc.Descendants("hudson.triggers.TimerTrigger").Select(
                     Element => Element.Element("spec").Value
                 ).ToList<string>();
-            jSetting.buildPeriody = buildPeriodyNodes.FirstOrDefault<string>();
+            jSetting.BuildPeriody = buildPeriodyNodes.FirstOrDefault<string>();
             return jSetting;
         }
 

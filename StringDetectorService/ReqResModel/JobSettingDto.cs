@@ -26,24 +26,24 @@ namespace StringDetectorService.ReqResModel
             {
                 return new JobSettingDto();
             }
-            if (jobSetting.scmSettings == null || jobSetting.scmSettings.Count() == 0)
+            if (jobSetting.ScmSettings == null || jobSetting.ScmSettings.Count() == 0)
             {
                 return new JobSettingDto()
                 {
 
                     JobName = jobSetting.JobName,
-                    BuildPeriody = jobSetting.buildPeriody,
+                    BuildPeriody = jobSetting.BuildPeriody,
                 };
             }
             return new JobSettingDto
             {
                 JobName = jobSetting.JobName,
-                BuildPeriody = jobSetting.buildPeriody,
-                SCMPort = jobSetting.scmSettings.FirstOrDefault().SCMPort,
-                UserName = jobSetting.scmSettings.FirstOrDefault().UserName,
-                Password = jobSetting.scmSettings.FirstOrDefault().Password,
-                Workspace = jobSetting.scmSettings.FirstOrDefault().Workspace,
-                ViewMap = jobSetting.scmSettings.FirstOrDefault().ViewMap,
+                BuildPeriody = jobSetting.BuildPeriody,
+                SCMPort = jobSetting.ScmSettings.FirstOrDefault().SCMPort,
+                UserName = jobSetting.ScmSettings.FirstOrDefault().UserName,
+                Password = jobSetting.ScmSettings.FirstOrDefault().Password,
+                Workspace = jobSetting.ScmSettings.FirstOrDefault().Workspace,
+                ViewMap = jobSetting.ScmSettings.FirstOrDefault().ViewMap,
             };
         }
 
@@ -61,8 +61,8 @@ namespace StringDetectorService.ReqResModel
             return  new JobSetting()
             {
                 JobName = jobSettingDto.JobName,
-                buildPeriody = jobSettingDto.BuildPeriody,
-                scmSettings = scmList
+                BuildPeriody = jobSettingDto.BuildPeriody,
+                ScmSettings = scmList
             };
 
             

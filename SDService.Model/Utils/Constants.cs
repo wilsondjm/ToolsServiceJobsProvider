@@ -84,6 +84,8 @@ namespace SDService.Model.Utils
         public  const string ToolNameField = "toolname";
         public  const string JobsField = "jobs";
 
-
+        // jenkins authentication
+        public const string JenkinsUserName = "citrix";
+        public const string JenkinsPassword = "citrix";
     }
 }

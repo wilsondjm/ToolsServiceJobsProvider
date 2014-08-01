@@ -74,8 +74,8 @@ namespace StringDetectorService.Controllers
             if (jobsService.CreateJob(new JobSetting()
             {
                 JobName = jobName,
-                buildPeriody = jobSettingData.BuildPeriody,
-                scmSettings = scmList
+                BuildPeriody = jobSettingData.BuildPeriody,
+                ScmSettings = scmList
             }, new JobConfiguration()
             {
                 JobName = jobName,

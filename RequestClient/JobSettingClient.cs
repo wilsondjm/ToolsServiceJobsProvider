@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,8 @@ namespace RequestClient
             {
                 client.BaseAddress = new Uri(requestURL);
                 client.DefaultRequestHeaders.Accept.Clear();
+                // authentication header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
 
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
 
@@ -39,7 +42,7 @@ namespace RequestClient
             baseURL.Replace("[PROJECTNAME]", jSetting.JobName);
             string requestURL = baseURL.ToString();
 
-            SCMSetting firstSetting = jSetting.scmSettings.FirstOrDefault();
+            SCMSetting firstSetting = jSetting.ScmSettings.FirstOrDefault();
             string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
                 jSetting.JobName,
                 firstSetting.UserName,
@@ -47,13 +50,15 @@ namespace RequestClient
                 firstSetting.SCMPort,
                 firstSetting.Workspace,
                 firstSetting.ViewMap,
-                jSetting.buildPeriody
+                jSetting.BuildPeriody
             );
 
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(requestURL);
                 client.DefaultRequestHeaders.Accept.Clear();
+                // authentication header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
 
                 HttpRequestMessage request = new HttpRequestMessage();
                 request.Content = new StringContent(scmString);
