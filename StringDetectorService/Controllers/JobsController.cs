@@ -29,21 +29,13 @@ namespace StringDetectorService.Controllers
         
         [Route("")]
         [HttpGet]
-        public IEnumerable<JobInfoToData> getAllJobs()
+        public IEnumerable<JobDto> getAllJobs()
         {
            Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
 
             IEnumerable<Job> Jobs = jobsService.GetAllJobs(fields);
-            IEnumerable<JobInfoToData> responseData =  Jobs.Select(job =>
-                new JobInfoToData()
-                {
-                    jobName = job.JobName,
-                    setting = job.Setting,
-                    configuration = job.Configuration,
-                    builds = job.Builds,
-                    report = job.Report,
-                    status = job.Status,
-                }
+            IEnumerable<JobDto> responseData =  Jobs.Select(job =>job.ToJobDto()
+                
                 );
 
             return responseData;
@@ -52,21 +44,12 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpGet]
-        public JobInfoToData getJob(string jobName)
+        public JobDto getJob(string jobName)
         {
            // Hub.Clients.User(userId)
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             Job job = jobsService.GetJob(jobName,fields);
-            JobInfoToData responseData =
-                new JobInfoToData()
-                {
-                    jobName = job.JobName,
-                    setting = job.Setting,
-                    configuration = job.Configuration,
-                    builds = job.Builds,
-                    report = job.Report,
-                    status = job.Status,
-                };
+            JobDto responseData =job.ToJobDto();
            // Hub.Clients.All.hello("ok");
             return responseData;
         }
@@ -75,7 +58,7 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpPost]
-        public HttpResponseMessage createJob(string jobName, JobSettingToData jobSettingData,bool realTime=false)
+        public HttpResponseMessage createJob(string jobName, JobSettingDto jobSettingData,bool realTime=false)
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             SCMSetting scmSetting = new SCMSetting()
@@ -100,16 +83,7 @@ namespace StringDetectorService.Controllers
             }))
             {
                 Job job = jobsService.GetJob(jobName,fields);
-                JobInfoToData responseData =
-                                new JobInfoToData()
-                                {
-                                    jobName = job.JobName,
-                                    setting = job.Setting,
-                                    configuration = job.Configuration,
-                                    builds = job.Builds,
-                                    report = job.Report,
-                                    status = job.Status,
-                                };
+                JobDto responseData = job.ToJobDto();
                 if (realTime)
                 {
                     // we will try to set partital response for real time next version

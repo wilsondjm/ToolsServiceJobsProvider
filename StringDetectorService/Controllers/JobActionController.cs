@@ -33,16 +33,8 @@ namespace StringDetectorService.Controllers
             if (result)
             {
                Job  job= jobsService.GetJob(JobName,fields);
-               JobInfoToData responseData =
-                               new JobInfoToData()
-                               {
-                                   jobName = job.JobName,
-                                   setting = job.Setting,
-                                   configuration = job.Configuration,
-                                   builds = job.Builds,
-                                   report = job.Report,
-                                   status = job.Status,
-                               };
+               JobDto responseData = job.ToJobDto();
+                              
                if (realtime)
                {
                    // we will try to set partital response for real time next version
@@ -62,16 +54,7 @@ namespace StringDetectorService.Controllers
             if (result)
             {
                 Job job = jobsService.GetJob(JobName,fields);
-                JobInfoToData responseData =
-                                new JobInfoToData()
-                                {
-                                    jobName = job.JobName,
-                                    setting = job.Setting,
-                                    configuration = job.Configuration,
-                                    builds = job.Builds,
-                                    report = job.Report,
-                                    status = job.Status,
-                                };
+                JobDto responseData = job.ToJobDto();
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version

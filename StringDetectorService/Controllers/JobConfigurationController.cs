@@ -24,22 +24,22 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpGet]
-        public JobConfigurationToData getConfiguration(string JobName)
+        public JobConfigDto getConfiguration(string JobName)
         {
             JobConfiguration configuration = configurationService.getConfiguration(JobName);
-            return new JobConfigurationToData() { jobName = configuration.JobName, configuration = configuration.Configuration };
+            return configuration.ToJobConfigDto();
         }
 
         [Route("")]
         [HttpPost]
-        public HttpResponseMessage AddConfiguration(string JobName, JobConfigurationToData data, bool realtime)
+        public HttpResponseMessage AddConfiguration(string JobName, JobConfigDto data, bool realtime)
         {
-            bool result = configurationService.addConfiguration(JobName, data.configuration);
+            bool result = configurationService.addConfiguration(JobName, data.Configuration);
 
             if (result)
             {
                 //JobConfiguration configuration = configurationService.getConfiguration(JobName);
-                JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                JobConfigDto responseData = data;
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version
@@ -52,14 +52,14 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPut]
-        public HttpResponseMessage UpdateConfiguration(string JobName, JobConfigurationToData data,bool realtime =false)
+        public HttpResponseMessage UpdateConfiguration(string JobName, JobConfigDto data,bool realtime =false)
         {
-            bool result = configurationService.updateConfiguration(JobName, data.configuration);
+            bool result = configurationService.updateConfiguration(JobName, data.Configuration);
 
             if (result)
             {
                 //JobConfiguration configuration = configurationService.getConfiguration(JobName);
-                JobConfigurationToData responseData = new JobConfigurationToData() { jobName = JobName, configuration = data.configuration };
+                JobConfigDto responseData = data;
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version

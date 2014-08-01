@@ -28,7 +28,7 @@ namespace StringDetectorService.Controllers
         public HttpResponseMessage FetchReport(string jobName, string buildName, [FromUri]string offset = "0")
         {
             JobReport report = reportService.getReport(jobName, buildName, offset);
-            var responseMessage = Request.CreateResponse<JobReportToData>(HttpStatusCode.Accepted, new JobReportToData() { JobName = jobName, Completed = report.Completed.ToString(), Report = report.Report, Offset = report.Offset.ToString() });
+            var responseMessage = Request.CreateResponse<JobReportDto>(HttpStatusCode.Accepted, report.ToJobReportDto());
 
             return responseMessage;
         }

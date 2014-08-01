@@ -135,7 +135,7 @@ namespace ServiceLayer
             {
                 containsJobName = true;
                 containsJobSetting = true;
-                containsJobConfig = true;
+              //  containsJobConfig = true;
                 containsJobBuilds = true;
                 containsJobReport = true;
                 containsJobStatus = true;
@@ -154,7 +154,7 @@ namespace ServiceLayer
                         containsJobSetting = true;
                         break;
                     case Constants.JobConfigField:
-                        containsJobConfig = true;
+                       // containsJobConfig = true;
                         break;
                     case Constants.JobHistoryField:
                         containsJobBuilds = true;

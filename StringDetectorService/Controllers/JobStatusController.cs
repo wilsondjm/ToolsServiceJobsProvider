@@ -1,6 +1,7 @@
 ﻿using SDService.Model.Basic;
 using ServiceLayer;
 using StringDetectorService.Hubs;
+using StringDetectorService.ReqResModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace StringDetectorService.Controllers
 
         [Route("api/Jobs/{jobName}/status")]
         [HttpGet]
-        public JobStatus getJobStatus(string jobName)
+        public JobStatusDto getJobStatus(string jobName)
         {
-            return statusService.getJobStatus(jobName);
+            return statusService.getJobStatus(jobName).ToJobStatusDto();
         }
     }
 }

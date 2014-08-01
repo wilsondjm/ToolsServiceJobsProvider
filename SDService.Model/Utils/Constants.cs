@@ -9,7 +9,7 @@ namespace SDService.Model.Utils
 {
     public static class Constants
     {
-        public  const string defaultServerAddress = "10.158.216.54";
+        public  const string defaultServerAddress = "10.158.2.6";
         public  const string defaultJenkinsServerAddress = "10.158.216.54:8080";
         public  static readonly string perforceSetting = ""  // [P4USERNAME], [P4PASSWORD], [P4PORT], [P4WORKSPACE], [PROJECTPATH]
           + "<hudson.plugins.perforce.PerforceSCM plugin=\"perforce@1.3.27\">"

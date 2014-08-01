@@ -24,61 +24,20 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpGet]
-        public JobSettingToData getJobSetting(string jobName)
+        public JobSettingDto getJobSetting(string jobName)
         {
             JobSetting settings = jobSettingService.getJobSetting(jobName);
-            if (settings.scmSettings.Count() > 0)
-            {
-                return new JobSettingToData()
-                {
-                    JobName = settings.JobName,
-                    BuildPeriody = settings.buildPeriody,
-                    SCMPort = settings.scmSettings.FirstOrDefault().SCMPort,
-                    UserName = settings.scmSettings.FirstOrDefault().UserName,
-                    Password = settings.scmSettings.FirstOrDefault().Password,
-                    Workspace = settings.scmSettings.FirstOrDefault().Workspace,
-                    ViewMap = settings.scmSettings.FirstOrDefault().ViewMap,
-                };
-            }
-            return new JobSettingToData()
-            {
-                JobName = settings.JobName,
-                BuildPeriody = settings.buildPeriody,
-            };
+             return settings.ToJobSettingDto();
         }
 
         [Route("")]
         [HttpPut]
-        public HttpResponseMessage updateJobSetting(string jobName, JobSettingToData jobSettingData, bool realtime =false)
+        public HttpResponseMessage updateJobSetting(string jobName, JobSettingDto jobSettingData, bool realtime =false)
         {
-            SCMSetting scmSetting = new SCMSetting()
-            {
-                SCMPort = jobSettingData.SCMPort,
-                UserName = jobSettingData.UserName,
-                Password = jobSettingData.Password,
-                Workspace = jobSettingData.Workspace,
-                ViewMap = jobSettingData.ViewMap
-            };
-            var scmList = new List<SCMSetting>(); scmList.Add(scmSetting);
-            JobSetting jobSetting = new JobSetting()
-            {
-                JobName = jobName,
-                buildPeriody = jobSettingData.BuildPeriody,
-                scmSettings = scmList
-            };
-
+            JobSetting jobSetting = jobSettingData.ToJobSetting();
             if (jobSettingService.updateJobSetting(jobSetting))
             {
-                JobSettingToData responseData = new JobSettingToData()
-                {
-                    JobName = jobSetting.JobName,
-                    BuildPeriody = jobSetting.buildPeriody,
-                    SCMPort = jobSetting.scmSettings.FirstOrDefault().SCMPort,
-                    UserName = jobSetting.scmSettings.FirstOrDefault().UserName,
-                    Password = jobSetting.scmSettings.FirstOrDefault().Password,
-                    Workspace = jobSetting.scmSettings.FirstOrDefault().Workspace,
-                    ViewMap = jobSetting.scmSettings.FirstOrDefault().ViewMap,
-                };
+                JobSettingDto responseData = jobSetting.ToJobSettingDto();
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version

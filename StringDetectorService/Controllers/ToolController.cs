@@ -23,22 +23,22 @@ namespace StringDetectorService.Controllers
 
           [Route("")]
          [HttpGet]
-         public IEnumerable<Tool> GetAllTools()
+         public IEnumerable<ToolDto> GetAllTools()
          {
              Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
              IEnumerable<Tool> tools = toolService.GetAllTools(fields);
-             return tools;
+             return tools.Select(tool=>tool.ToToolDto());
          }
 
 
          [Route("{toolName}")]
          [HttpGet]
-         public Tool getTool(string toolName)
+         public ToolDto getTool(string toolName)
          {
              Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
              Tool tool = toolService.GetTool(toolName, fields);
-
-             return tool;
+             ToolDto responseData = tool.ToToolDto();
+             return responseData;
          }
         
     }
