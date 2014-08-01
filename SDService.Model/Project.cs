@@ -9,6 +9,6 @@ namespace SDService.Model
     public class Project: View
     {
         public string ProjectName { get; set; }
-        public static const string Prifix="Project-";
+        public const string Prifix="Project-";
     }
 }

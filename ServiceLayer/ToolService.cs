@@ -14,57 +14,67 @@ namespace ServiceLayer
     {
         // tool service use some clients 
         ToolClient toolClient;
-
+        JobSettingClient settingClient;
+        ConfigurationClient configClient;
+        JobHistoryClient historyClient;
+        JobReportsClient reportClient;
+        JobStatusClient stausClient;
         public ToolService(){
             // init these clients
             toolClient = new ToolClient();
+            settingClient = new JobSettingClient();
+            configClient = new ConfigurationClient();
+            historyClient = new JobHistoryClient();
+            reportClient = new JobReportsClient();
+            stausClient = new JobStatusClient();
         }
 
 
         public IEnumerable<Tool> GetAllTools(Collection<string> fields)
         {
-            IEnumerable<Tool> tools = toolClient.QueryAllTools();
-            foreach (Tool tool in tools)
-            {
+            IList<Tool> tools = toolClient.QueryAllTools();
+            IEnumerable<Tool> result= tools.Select(tool=> GetTool(tool.ToolName,fields)).ToList();
 
-            }
-
-            return null;
+            return result;
         }
 
         public Tool GetTool(string toolName, Collection<string> fields)
         {
             Tool tool = toolClient.QueryTool(toolName);
+            Dictionary<string,Collection<string>> fieldsMap= RequestFieldHelper.GetSecondLevelFields(fields);
+            
 
-
-
-            JobFieldProperties jobFields = new JobFieldProperties(fields);
-            foreach (Job job in tool.Jobs)
+            ToolFieldProperties toolFields = new ToolFieldProperties(fieldsMap==null?null:new List<string>(fieldsMap.Keys));
+            if (toolFields.containsJobs)
             {
+                JobFieldProperties jobFields = new JobFieldProperties(fieldsMap == null?null : fieldsMap[Constants.JobsField]);
+                foreach (Job job in tool.Jobs)
+                {
+                    if (jobFields.containsJobSetting)
+                    {
+                        //Get JobSetting
+                        job.Setting = settingClient.QueryJobSetting(job.JobName);
+                    }
+                    if (jobFields.containsJobConfig)
+                    {
+                        //Get JobConfiguration
+                        job.Configuration = configClient.getConfiguration(job.JobName);
+                    }
+                    if (jobFields.containsJobBuilds)
+                    {
+                        //Get Job Build History
+                        job.Builds = historyClient.getJobHistory(job.JobName);
+                    }
+                    if (jobFields.containsJobReport)
+                    {
+                        //Get Job LastBuild
+                        job.Report = reportClient.FetchReport(job.JobName);
+                    }
+                }
 
-                if (jobFields.containsJobSetting)
-                {
-                    //Get JobSetting
-                    job.JobSettings = settingClient.QueryJobSetting(job.JobName);
-                }
-                if (jobFields.containsJobConfig)
-                {
-                    //Get JobConfiguration
-                    job.Configuration = configClient.getConfiguration(job.JobName);
-                }
-                if (jobFields.containsJobBuilds)
-                {
-                    //Get Job Build History
-                    job.Builds = historyClient.getJobHistory(job.JobName);
-                }
-                if (jobFields.containsJobReport)
-                {
-                    //Get Job LastBuild
-                    job.LastBuild = reportClient.FetchReport(job.JobName);
-                }
             }
-
-            return null;
+            
+            return tool;
         }
     }
 
@@ -75,11 +85,11 @@ namespace ServiceLayer
         public bool containsToolName = false;
         public bool containsJobs = false;
 
-        public ToolFieldProperties(Collection<string> fields)
+        public ToolFieldProperties(ICollection<string> fields)
         {
             setToolFieldProperties(fields);
         }
-        private void setToolFieldProperties(Collection<string> fields)
+        private void setToolFieldProperties(ICollection<string> fields)
         {
 
             if (fields == null || fields.Contains("*"))

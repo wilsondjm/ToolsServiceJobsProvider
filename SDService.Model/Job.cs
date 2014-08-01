@@ -11,19 +11,11 @@ namespace SDService.Model
     public class Job
     {
         public string JobName { set; get; }
-        public JobSetting JobSettings { set; get; }
+        public JobSetting Setting { set; get; }
         public JobConfiguration Configuration { set; get; }
-        public JobReport LastBuild { set; get; }
+        public JobReport Report { set; get; }
         public JobHistory Builds { set; get; }
         public JobStatus Status { get; set; }
     }
-
-    //public class Job
-    //{
-    //    public string JobName { set; get; }
-    //    public JobSetting JobSettings { set; get; }
-    //    public JobConfiguration Configuration { set; get; }
-    //    public JobReport LastBuild { set; get; }
-    //    public string color;
-    //}
+    
 }

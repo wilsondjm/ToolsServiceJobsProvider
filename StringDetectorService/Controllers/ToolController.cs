@@ -22,12 +22,12 @@ namespace StringDetectorService.Controllers
         }
 
           [Route("")]
+         [HttpGet]
          public IEnumerable<Tool> GetAllTools()
          {
              Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
              IEnumerable<Tool> tools = toolService.GetAllTools(fields);
-
-             return null;
+             return tools;
          }
 
 
@@ -36,21 +36,9 @@ namespace StringDetectorService.Controllers
          public Tool getTool(string toolName)
          {
              Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
+             Tool tool = toolService.GetTool(toolName, fields);
 
-            
-             IEnumerable<JobInfoToData> responseData = Jobs.Select(job =>
-                 new JobInfoToData()
-                 {
-                     jobName = job.JobName,
-                     setting = job.JobSettings,
-                     configuration = job.Configuration,
-                     builds = job.Builds,
-                     report = job.LastBuild,
-                     status = job.Status,
-                 }
-                 );
-
-             return null;
+             return tool;
          }
         
     }

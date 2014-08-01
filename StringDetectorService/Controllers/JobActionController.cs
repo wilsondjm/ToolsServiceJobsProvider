@@ -37,10 +37,10 @@ namespace StringDetectorService.Controllers
                                new JobInfoToData()
                                {
                                    jobName = job.JobName,
-                                   setting = job.JobSettings,
+                                   setting = job.Setting,
                                    configuration = job.Configuration,
                                    builds = job.Builds,
-                                   report = job.LastBuild,
+                                   report = job.Report,
                                    status = job.Status,
                                };
                if (realtime)
@@ -66,10 +66,10 @@ namespace StringDetectorService.Controllers
                                 new JobInfoToData()
                                 {
                                     jobName = job.JobName,
-                                    setting = job.JobSettings,
+                                    setting = job.Setting,
                                     configuration = job.Configuration,
                                     builds = job.Builds,
-                                    report = job.LastBuild,
+                                    report = job.Report,
                                     status = job.Status,
                                 };
                 if (realtime)

@@ -9,6 +9,6 @@ namespace SDService.Model
     public class Tool:View
     {
         public string ToolName { get; set; }
-        public static const string Prifix = "Tool-";
+        public const string Prifix = "Tool-";
     }
 }

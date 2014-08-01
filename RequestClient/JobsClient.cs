@@ -12,7 +12,7 @@ namespace RequestClient
 {
     public class JobsClient
     {
-        public IEnumerable<Job> QueryAllSDJobs(string serverAddress = Constants.defaultJenkinsServerAddress)
+        public IList<Job> QueryAllSDJobs(string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/api/xml";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress);

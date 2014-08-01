@@ -34,14 +34,18 @@ namespace SDService.Model.Utils
                     throw new Exception(HttpStatusCode.BadRequest.ToString());
                 }
 
-                return GetFirstLevelFields(fields);
+                return fields;
             }
 
             return null;
         }
 
-        internal static Collection<string> GetFirstLevelFields(Collection<string> fields)
+        public static Collection<string> GetFirstLevelFields(Collection<string> fields)
         {
+            if (fields == null)
+            {
+                return null;
+            }
             Collection<string> firstLevelFields = new Collection<string>();
             foreach (string field in fields)
             {
@@ -57,6 +61,41 @@ namespace SDService.Model.Utils
             }
             return firstLevelFields;
         }
+
+        public static Dictionary<string, Collection<string>> GetSecondLevelFields(Collection<string> fields)
+        {
+            if (fields == null)
+            {
+                return null;
+            }
+            Dictionary<string, Collection<string>> topTwoLevelFields = new Dictionary<string, Collection<string>>();
+           
+            foreach (string field in fields)
+            {
+                if (!field.Contains("/"))
+                {
+                    topTwoLevelFields.Add(field, new Collection<string>());
+                }
+                else
+                {
+                  string[]  fieldArray = field.Split('/');
+                  string firstLevelField = fieldArray[0];
+                  string secondLevelField = fieldArray[1];
+                  if (topTwoLevelFields.ContainsKey(firstLevelField))
+                  {
+                      topTwoLevelFields[firstLevelField].Add(secondLevelField);
+                  }
+                  else
+                  {
+                      topTwoLevelFields.Add(firstLevelField, new Collection<string>());
+                      topTwoLevelFields[firstLevelField].Add(secondLevelField);
+                  }
+                }
+            }
+            return topTwoLevelFields;
+        }
+
+        
     }
     internal static class Fields
     {

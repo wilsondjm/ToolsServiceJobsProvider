@@ -33,15 +33,15 @@ namespace ServiceLayer
         {
             //More work needs to be done here to provide more job information
             // Get job name and stauts
-            IEnumerable<Job> jobs = jobsClient.QueryAllSDJobs();
-            JobFieldProperties jobFields = new JobFieldProperties(fields);
+            IList<Job> jobs = jobsClient.QueryAllSDJobs();
+            JobFieldProperties jobFields = new JobFieldProperties(RequestFieldHelper.GetFirstLevelFields(fields));
             foreach (Job job in jobs)
             {
                 
                 if (jobFields.containsJobSetting)
                 {
                     //Get JobSetting
-                    job.JobSettings = settingClient.QueryJobSetting(job.JobName);
+                    job.Setting = settingClient.QueryJobSetting(job.JobName);
                 }
                 if (jobFields.containsJobConfig)
                 {
@@ -56,7 +56,7 @@ namespace ServiceLayer
                 if (jobFields.containsJobReport)
                 {
                     //Get Job LastBuild
-                    job.LastBuild = reportClient.FetchReport(job.JobName);
+                    job.Report = reportClient.FetchReport(job.JobName);
                 }
             }
             return jobs;
@@ -66,7 +66,7 @@ namespace ServiceLayer
         public Job GetJob(string jobName, Collection<string> fields)
         {
             Job job = new Job() { JobName=jobName};
-            JobFieldProperties jobFields = new JobFieldProperties(fields);
+            JobFieldProperties jobFields = new JobFieldProperties(RequestFieldHelper.GetFirstLevelFields(fields));
             if ( jobFields.containsJobStatus && jobFields.containsJobBuilds )
             {
                 // get jobName jobStatus Builds
@@ -87,7 +87,7 @@ namespace ServiceLayer
             if (jobFields.containsJobSetting)
             {
                 //Get JobSetting
-                job.JobSettings = settingClient.QueryJobSetting(job.JobName);
+                job.Setting = settingClient.QueryJobSetting(job.JobName);
             }
             if (jobFields.containsJobConfig)
             {
@@ -97,7 +97,7 @@ namespace ServiceLayer
             if (jobFields.containsJobReport)
             {
                 //Get Job LastBuild
-                job.LastBuild = reportClient.FetchReport(job.JobName);
+                job.Report = reportClient.FetchReport(job.JobName);
             }
             return job;
         }
@@ -161,6 +161,9 @@ namespace ServiceLayer
                         break;
                     case Constants.JobStatusField:
                         containsJobStatus = true;
+                        break;
+                    case Constants.JobReportField:
+                        containsJobReport = true;
                         break;
                 }
             }

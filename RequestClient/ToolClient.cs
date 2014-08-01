@@ -11,7 +11,7 @@ namespace RequestClient
 {
     public  class ToolClient
     {
-        public IEnumerable<Tool> QueryAllTools(string serverAddress = Constants.defaultJenkinsServerAddress)
+        public IList<Tool> QueryAllTools(string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/api/xml?tree=views[name]";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress);

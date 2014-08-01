@@ -49,11 +49,11 @@ namespace SDService.Model.Utils
             return jSetting;
         }
 
-        public static IEnumerable<Job> parseJobsfromXml(string xml)
+        public static IList<Job> parseJobsfromXml(string xml)
         {
             XDocument xDoc = XDocument.Parse(xml);
 
-            IEnumerable<Job> jobs = xDoc.Descendants("job").Select(
+            IList<Job> jobs = xDoc.Descendants("job").Select(
                 JobElement => new Job()
                 {
                     JobName = JobElement.Element("name").Value,
@@ -110,11 +110,11 @@ namespace SDService.Model.Utils
         }
 
 
-        public static IEnumerable<Tool> parseToolsfromXml(string xml)
+        public static IList<Tool> parseToolsfromXml(string xml)
         {
             XDocument xDoc = XDocument.Parse(xml);
 
-            IEnumerable<Tool> tools = xDoc.Descendants("view").Where(viewElement=>viewElement.Element("name").Value.StartsWith(Tool.Prifix)) .Select(
+            IList<Tool> tools = xDoc.Descendants("view").Where(viewElement=>viewElement.Element("name").Value.StartsWith(Tool.Prifix)) .Select(
                
                 toolElement => new Tool()
                 {
@@ -147,11 +147,11 @@ namespace SDService.Model.Utils
         }
 
 
-        public static IEnumerable<Project> parseProjectsfromXml(string xml)
+        public static IList<Project> parseProjectsfromXml(string xml)
         {
             XDocument xDoc = XDocument.Parse(xml);
 
-            IEnumerable<Project> projects = xDoc.Descendants("view").Where(viewElement => viewElement.Element("name").Value.StartsWith(Project.Prifix)).Select(
+            IList<Project> projects = xDoc.Descendants("view").Where(viewElement => viewElement.Element("name").Value.StartsWith(Project.Prifix)).Select(
 
                 projectElement => new Project()
                 {
