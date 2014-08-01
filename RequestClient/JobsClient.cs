@@ -12,7 +12,7 @@ namespace RequestClient
 {
     public class JobsClient
     {
-        public IEnumerable<Job> QueryAllSDJobs(string serverAddress = "10.158.2.66:8080")
+        public IEnumerable<Job> QueryAllSDJobs(string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/api/xml";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -29,7 +29,7 @@ namespace RequestClient
             }
         }
 
-        public Job QueryJob(string jobName,string serverAddress = "10.158.2.66:8080")
+        public Job QueryJob(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=builds[duration,fullDisplayName,number,id,result],lastBuild[duration,fullDisplayName,number,id,result],color";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[JOBNAME]", jobName);
@@ -48,7 +48,7 @@ namespace RequestClient
 
 
 
-        public bool createJob(JobSetting jSetting, string serverAddress = "10.158.2.66:8080")
+        public bool createJob(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             SCMSetting firstSetting = jSetting.scmSettings.FirstOrDefault();
 
@@ -88,7 +88,7 @@ namespace RequestClient
             }
         }
 
-        public bool DeleteJob(string projectName, string serverAddress = "10.158.2.66:8080")
+        public bool DeleteJob(string projectName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/doDelete");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);

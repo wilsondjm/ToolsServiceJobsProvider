@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="Basic\JobHistory.cs" />
     <Compile Include="Basic\JobStatus.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="Tool.cs" />
     <Compile Include="Utils\OperationResult.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Basic\JobConfiguration.cs" />
@@ -53,6 +55,7 @@
     <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\JobConfigHelper.cs" />
     <Compile Include="Utils\RequestFieldHelper.cs" />
+    <Compile Include="View.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -70,6 +70,10 @@ namespace SDService.Model.Utils
             return jobs;
         }
 
+
+
+
+
         public static Job parseJobFromXml(string xml,string jobName)
         {
             Job job = new Job() { JobName = jobName ,Builds = new JobHistory(){JobName = jobName},Status = new JobStatus(){JobName=jobName} };
@@ -105,5 +109,40 @@ namespace SDService.Model.Utils
             return job;
         }
 
+
+        public static IEnumerable<Tool> parseToolsfromXml(string xml)
+        {
+            XDocument xDoc = XDocument.Parse(xml);
+
+            IEnumerable<Tool> tools = xDoc.Descendants("view").Where(viewElement=>viewElement.Element("name").Value.StartsWith(Tool.Prifix)) .Select(
+               
+                toolElement => new Tool()
+                {
+                    ViewName = toolElement.Element("name").Value,
+                    ToolName = toolElement.Element("name").Value.Replace(Tool.Prifix,"")
+                    
+                }
+                ).ToList<Tool>();
+
+            return tools;
+        }
+
+
+        public static IEnumerable<Project> parseProjectsfromXml(string xml)
+        {
+            XDocument xDoc = XDocument.Parse(xml);
+
+            IEnumerable<Project> projects = xDoc.Descendants("view").Where(viewElement => viewElement.Element("name").Value.StartsWith(Project.Prifix)).Select(
+
+                projectElement => new Project()
+                {
+                    ViewName = projectElement.Element("name").Value,
+                    ProjectName = projectElement.Element("name").Value.Replace(Project.Prifix, "")
+
+                }
+                ).ToList<Project>();
+
+            return projects;
+        }
     }
 }

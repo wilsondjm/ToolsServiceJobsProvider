@@ -16,7 +16,7 @@ namespace RequestClient
         {
         }
 
-        public bool addConfiguration(string projectName, string config, string serverAddress = "10.158.2.66")
+        public bool addConfiguration(string projectName, string config, string serverAddress = Constants.defaultServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/Configurations/";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -38,7 +38,7 @@ namespace RequestClient
             }
         }
 
-        public bool updateConfiguration(string projectName, string config, string serverAddress = "10.158.2.66")
+        public bool updateConfiguration(string projectName, string config, string serverAddress = Constants.defaultServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/Configurations/";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -60,7 +60,7 @@ namespace RequestClient
             }
         }
 
-        public JobConfiguration getConfiguration(string projectName, string serverAddress = "10.158.2.66")
+        public JobConfiguration getConfiguration(string projectName, string serverAddress = Constants.defaultServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/Configurations/[PROJECTNAME]";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[PROJECTNAME]", projectName);
@@ -74,7 +74,7 @@ namespace RequestClient
             }
         }
 
-        public bool deleConfiguration(string projectName, string serverAddress = "10.158.2.66")
+        public bool deleConfiguration(string projectName, string serverAddress = Constants.defaultServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/Configurations/[PROJECTNAME]";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[PROJECTNAME]", projectName);

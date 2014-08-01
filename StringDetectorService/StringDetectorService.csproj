@@ -813,6 +813,7 @@
     <Compile Include="Controllers\JobSettingController.cs" />
     <Compile Include="Controllers\JobStatusController.cs" />
     <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\ToolController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

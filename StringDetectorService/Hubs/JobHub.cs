@@ -9,6 +9,7 @@ using SDService.Model;
 using System.Text;
 using System.Net.Http;
 using System.Diagnostics;
+using SDService.Model.Utils;
 
 namespace StringDetectorService.Hubs
 {
@@ -16,7 +17,6 @@ namespace StringDetectorService.Hubs
     // via the HTTP API. It's here for clients which want to get continuous
     public class JobHub : Hub
     {
-        public static ConcurrentDictionary<string, List<int>> _mapping = new ConcurrentDictionary<string, List<int>>();
 
         public override Task OnConnected()
         {
@@ -38,7 +38,7 @@ namespace StringDetectorService.Hubs
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/lastBuild/logText/progressiveText?start=");
             string offset = "0";
             baseURL.Replace("[PROJECTNAME]", jobName);
-            baseURL.Replace("[SERVERADDRESS]", "10.158.2.66:8080");
+            baseURL.Replace("[SERVERADDRESS]", Constants.defaultJenkinsServerAddress);
             string requestURL = baseURL.ToString();
             bool completed = false;
             

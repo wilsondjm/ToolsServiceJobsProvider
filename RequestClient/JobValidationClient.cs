@@ -15,7 +15,7 @@ namespace RequestClient
         {
         }
 
-        public OperationResult validateJobName(string jobName, string serverAddress = "10.158.2.66:8080")
+        public OperationResult validateJobName(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/checkJobName?value=";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress)+jobName;
@@ -46,7 +46,7 @@ namespace RequestClient
             }
         }
 
-        public OperationResult validateTimeSetting(string timingStr, string serverAddress = "10.158.2.66:8080")
+        public OperationResult validateTimeSetting(string timingStr, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             string baseURL = "http://[SERVERADDRESS]/job/validation/descriptorByName/hudson.triggers.TimerTrigger/checkSpec?value=";
             string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress)+timingStr;

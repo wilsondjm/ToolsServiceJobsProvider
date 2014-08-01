@@ -17,7 +17,7 @@ namespace RequestClient
         public JobHistoryClient()
         { }
 
-        public JobHistory getJobHistory(string jobName, string serverAddress = "10.158.2.66:8080")
+        public JobHistory getJobHistory(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder(baseURLSTR);
             JobHistory history;

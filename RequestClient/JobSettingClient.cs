@@ -13,7 +13,7 @@ namespace RequestClient
    public class JobSettingClient
     {
 
-        public JobSetting QueryJobSetting(string jobName, string serverAddress = "10.158.2.66:8080")
+       public JobSetting QueryJobSetting(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/config.xml");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -32,10 +32,12 @@ namespace RequestClient
             }
         }
 
-        public bool UpdateJobSetting(JobSetting jSetting)
+       public bool UpdateJobSetting(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
-            string baseURL = "http://10.158.2.66:8080/job/[PROJECTNAME]/config.xml";
-            string requestURL = baseURL.Replace("[PROJECTNAME]", jSetting.JobName);
+            StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/config.xml");
+            baseURL.Replace("[SERVERADDRESS]", serverAddress);
+            baseURL.Replace("[PROJECTNAME]", jSetting.JobName);
+            string requestURL = baseURL.ToString();
 
             SCMSetting firstSetting = jSetting.scmSettings.FirstOrDefault();
             string scmString = JobConfigHelper.getP4SingleDepotJobConfig(

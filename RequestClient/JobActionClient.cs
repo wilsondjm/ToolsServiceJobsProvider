@@ -11,7 +11,7 @@ namespace RequestClient
     public class JobActionClient
     {
         
-        public bool startBuild(string projectName, string serverAddress = "10.158.2.66:8080")
+        public bool startBuild(string projectName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/build?delay=0sec");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -34,7 +34,7 @@ namespace RequestClient
             }
         }
 
-        public bool stopaBuild(string projectName, string serverAddress = "10.158.2.66:8080", string buildNumber = "lastBuild")
+        public bool stopaBuild(string projectName, string serverAddress = Constants.defaultJenkinsServerAddress, string buildNumber = "lastBuild")
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/[BUILDNUMBER]/stop");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);

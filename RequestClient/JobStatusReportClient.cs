@@ -14,7 +14,7 @@ namespace RequestClient
         //   lastBuild
         StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/[BUILDNAME]/logText/progressiveText?start=[OFFSET]");
 
-        public JobReportsClient(string serverAddress = "10.158.2.66:8080")
+        public JobReportsClient(string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
         }

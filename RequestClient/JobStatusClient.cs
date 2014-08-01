@@ -1,4 +1,5 @@
 ﻿using SDService.Model.Basic;
+using SDService.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace RequestClient
          public JobStatusClient()
         { }
 
-        public JobStatus getJobStatus(string jobName, string serverAddress = "10.158.2.66:8080")
+        public JobStatus getJobStatus(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             Dictionary<string, string> colorConvertMap = new Dictionary<string, string>(){
              {"red","Failed"},
