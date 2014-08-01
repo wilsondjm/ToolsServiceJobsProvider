@@ -28,22 +28,21 @@ namespace RequestClient
             }
         }
 
-        public Tool QueryTool(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
+        public Tool QueryTool(string toolName, string serverAddress = Constants.defaultJenkinsServerAddress,string prefix =Tool.Prifix)
         {
-            string baseURL = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=builds[duration,fullDisplayName,number,id,result],lastBuild[duration,fullDisplayName,number,id,result],color";
-            string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[JOBNAME]", jobName);
+            string baseURL = "http://[SERVERADDRESS]/view/[PREFIX][TOOLNAME]/api/xml";
+            string requestURL = baseURL.Replace("[SERVERADDRESS]", serverAddress).Replace("[PREFIX]", prefix).Replace("[TOOLNAME]",toolName);
 
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri(requestURL);
-            //    client.DefaultRequestHeaders.Accept.Clear();
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(requestURL);
+                client.DefaultRequestHeaders.Accept.Clear();
 
-            //    HttpResponseMessage response = client.GetAsync(string.Empty).Result;
+                HttpResponseMessage response = client.GetAsync(string.Empty).Result;
 
-            //    string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-            //    return JobConfigHelper.parseJobFromXml(xml, jobName);
-            //}
-            return null;
+                string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
+                return JobConfigHelper.parseToolfromXml(xml, toolName);
+            }
         }
     }
 }

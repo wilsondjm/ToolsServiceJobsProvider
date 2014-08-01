@@ -58,25 +58,32 @@ namespace SDService.Model.Utils
             };
 
         // job action constants
-        public static readonly string StartActionFailed = "Start action failed";
-        public static readonly string StopActionFailed = "Stop action failed";
-        public static readonly string DeleteActionFailed = "The Delete action failed";
-        public static readonly string CreateActionFailed = "Failed to create the job.";
-        public static readonly string UpdateSettingsFailed = "Failed to update the job settings";
-        public static readonly string AddConfigurationFailed = "Failed to add job configuration";
-        public static readonly string UpdateConfigurationFailed = "Failed to update job configuration";
-        public static readonly string DeleteConfigurationFailed = "Failed to delete job configuraion";
-        public static readonly string DefaultConfiguration = " ";
+        public static const string StartActionFailed = "Start action failed";
+        public static const string StopActionFailed = "Stop action failed";
+        public static const string DeleteActionFailed = "The Delete action failed";
+        public static const string CreateActionFailed = "Failed to create the job.";
+        public static const string UpdateSettingsFailed = "Failed to update the job settings";
+        public static const string AddConfigurationFailed = "Failed to add job configuration";
+        public static const string UpdateConfigurationFailed = "Failed to update job configuration";
+        public static const string DeleteConfigurationFailed = "Failed to delete job configuraion";
+        public static const string DefaultConfiguration = " ";
 
 
         // job field constants
-        public static readonly Collection<string> DefaultJobFields = new Collection<string> { "jobname", "setting", "configuration", "builds", "report", "status" };
-        public static readonly string JobNameField = "jobname";
-        public static readonly string JobSettingField = "setting";
-        public static readonly string JobConfigField = "configuration";
-        public static readonly string JobHistoryField = "builds";
-        public static readonly string JobReportField = "report";
-        public static readonly string JobStatusField = "status";
+        public static readonly Collection<string> DefaultJobFields = new Collection<string> { JobNameField, JobSettingField, JobConfigField, JobHistoryField, JobReportField, JobStatusField };
+        public static const string JobNameField = "jobname";
+        public static const string JobSettingField = "setting";
+        public static const string JobConfigField = "configuration";
+        public static const string JobHistoryField = "builds";
+        public static const string JobReportField = "report";
+        public static const string JobStatusField = "status";
+
+        //tool field constants
+        public static readonly Collection<string> DefaultToolFields = new Collection<string> { ViewNameField, ToolNameField, JobsField };
+        public static const string ViewNameField = "viewname";
+        public static const string ToolNameField = "toolname";
+        public static const string JobsField = "jobs";
+
 
     }
 }

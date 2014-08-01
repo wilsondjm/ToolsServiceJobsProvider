@@ -114,72 +114,56 @@ namespace ServiceLayer
         {
             return jobsClient.DeleteJob(projectName);
         }
+    }
+    class JobFieldProperties
+    {
+        public bool containsJobName = false;
+        public bool containsJobSetting = false;
+        public bool containsJobConfig = false;
+        public bool containsJobBuilds = false;
+        public bool containsJobReport = false;
+        public bool containsJobStatus = false;
 
-
-        internal  class JobFieldProperties
+        public JobFieldProperties(Collection<string> fields)
         {
-           public bool containsJobName = false;
-           public bool containsJobSetting = false;
-           public bool containsJobConfig = false;
-           public bool containsJobBuilds = false;
-           public bool containsJobReport = false;
-           public bool containsJobStatus = false;
+            setJobFieldProperties(fields);
+        }
+        private void setJobFieldProperties(Collection<string> fields)
+        {
 
-           public  JobFieldProperties(Collection<string> fields)
+            if (fields == null || fields.Contains("*"))
             {
-                setJobFieldProperties(fields);
+                containsJobName = true;
+                containsJobSetting = true;
+                containsJobConfig = true;
+                containsJobBuilds = true;
+                containsJobReport = true;
+                containsJobStatus = true;
+                return;
             }
-            private void setJobFieldProperties(Collection<string> fields)
+
+            foreach (string field in fields)
             {
-
-                if (fields == null || fields.Contains("*"))
+                string effectiveField = field.ToLower();
+                switch (effectiveField)
                 {
-                    containsJobName = true;   
-                    containsJobSetting = true;
-                    containsJobConfig = true;
-                    containsJobBuilds = true;
-                    containsJobReport = true;
-                    containsJobStatus = true;
-                    return;
-                }
-
-                foreach (string field in fields)
-                {
-                    string effectiveField = field.ToLower();
-                    if (effectiveField.Equals( Constants.JobNameField))
-                    {
+                    case Constants.JobNameField:
                         containsJobName = true;
-                        continue;
-                    }
-                    if (effectiveField.Equals( Constants.JobSettingField))
-                    {
+                        break;
+                    case Constants.JobSettingField:
                         containsJobSetting = true;
-
-                        continue;
-                    }
-                    if (effectiveField.Equals( Constants.JobConfigField))
-                    {
+                        break;
+                    case Constants.JobConfigField:
                         containsJobConfig = true;
-                        continue;
-                    }
-                    if (effectiveField .Equals( Constants.JobHistoryField))
-                    {
+                        break;
+                    case Constants.JobHistoryField:
                         containsJobBuilds = true;
-                        continue;
-                    }
-                    if (effectiveField .Equals( Constants.JobReportField))
-                    {
-                        containsJobReport = true;
-                        continue;
-                    }
-                    if (effectiveField .Equals( Constants.JobStatusField))
-                    {
+                        break;
+                    case Constants.JobStatusField:
                         containsJobStatus = true;
-                        continue;
-                    }
+                        break;
                 }
             }
         }
-
     }
 }

@@ -127,6 +127,25 @@ namespace SDService.Model.Utils
             return tools;
         }
 
+        public static Tool parseToolfromXml(string xml,string toolName)
+        {
+            XDocument xDoc = XDocument.Parse(xml);
+            Tool tool = new Tool() { ViewName = Tool.Prifix + toolName, ToolName = toolName };
+            tool.Jobs = xDoc.Descendants("job").Select(
+               JobElement => new Job()
+               {
+                   JobName = JobElement.Element("name").Value,
+                   Status = new JobStatus()
+                   {
+                       JobName = JobElement.Element("name").Value,
+                       Status = Constants.ColorConvertMap[JobElement.Element("color").Value]
+                   }
+               }
+               ).ToList<Job>();
+
+            return tool;
+        }
+
 
         public static IEnumerable<Project> parseProjectsfromXml(string xml)
         {
