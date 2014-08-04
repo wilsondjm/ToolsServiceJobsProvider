@@ -14,10 +14,12 @@ using System.Threading;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.SignalR;
+using System.Web.Http.Cors;
 
 namespace StringDetectorService.Controllers
 {
     [RoutePrefix("api/jobs")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class JobsController : ApiControllerWithHub<JobHub>
     {
         JobsService jobsService;

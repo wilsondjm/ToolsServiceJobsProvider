@@ -31,7 +31,7 @@ namespace RequestClient
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
 
                 string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-                string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
+               // string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
                 return JobConfigHelper.parseCommonJobSettingsfromXml(xml, jobName);
             }
         }

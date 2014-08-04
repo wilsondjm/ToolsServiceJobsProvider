@@ -10,10 +10,12 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace StringDetectorService.Controllers
 {
     [RoutePrefix("api/jobs/{jobName}/report/{buildName}")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class JobReportsController : ApiControllerWithHub<JobHub>
     {
         JobStatusReportService reportService;

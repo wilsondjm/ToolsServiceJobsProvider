@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Tracing;
+using System.Web.Routing;
 
 namespace StringDetectorService
 {
@@ -11,6 +12,9 @@ namespace StringDetectorService
     {
         public static void Register(HttpConfiguration config)
         {
+            // add web api CORS support
+            config.EnableCors();
+
             // Web API configuration and services
             config.EnableSystemDiagnosticsTracing();
             // Web API routes
