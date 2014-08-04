@@ -31,9 +31,12 @@ namespace RequestClient
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
 
                 string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-                return JobConfigHelper.parseJobSettingsfromXml(xml, jobName);
+                string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
+                return JobConfigHelper.parseCommonJobSettingsfromXml(xml, jobName);
             }
         }
+
+
 
        public bool UpdateJobSetting(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
         {

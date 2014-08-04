@@ -28,11 +28,13 @@ namespace SDService.Model.Utils
             return p4JobConfig.ToString();
         }
 
-        public static JobSetting parseJobSettingsfromXml(string xml, string jobName)
+        public static JobSetting parseCommonJobSettingsfromXml(string xml, string jobName)
         {
             XDocument xDoc = XDocument.Parse(xml);
             JobSetting jSetting = new JobSetting();
             jSetting.JobName = jobName;
+
+
             jSetting.ScmSettings = xDoc.Descendants("hudson.plugins.perforce.PerforceSCM").Select(
             SCMElement => new SCMSetting()
             {
@@ -48,6 +50,32 @@ namespace SDService.Model.Utils
             jSetting.BuildPeriody = buildPeriodyNodes.FirstOrDefault<string>();
             return jSetting;
         }
+
+
+        private static IEnumerable<SCMSetting> getMultipleSCMSetting(XDocument xDoc)
+        {
+            return xDoc.Descendants("hudson.plugins.perforce.PerforceSCM").Select(
+            SCMElement => new SCMSetting()
+            {
+                SCMPort = SCMElement.Element("p4Port").Value,
+                UserName = SCMElement.Element("p4User").Value,
+                Password = SCMElement.Element("p4Passwd").Value,
+                Workspace = SCMElement.Element("p4Client").Value,
+                ViewMap = SCMElement.Element("projectPath").Value,
+            }).ToList<SCMSetting>();
+        }
+
+
+        public static string parseUpStreamProjectfromXml(string xml){
+             XDocument xDoc = XDocument.Parse(xml);
+             string upStreamProject = xDoc.Descendants("upstreamProjects").Select(
+                     Element => Element.Value
+                 ).First().Split(',').First();
+             return upStreamProject;
+        }
+
+
+       // public static 
 
         public static IList<Job> parseJobsfromXml(string xml)
         {

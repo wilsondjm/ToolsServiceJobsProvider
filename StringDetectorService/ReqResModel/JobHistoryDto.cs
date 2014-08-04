@@ -49,7 +49,7 @@ namespace StringDetectorService.ReqResModel
                 Duration = item.Duration,
                 FullDisplayName = item.FullDisplayName,
                 Id = item.Id,
-                Number = item.Id,
+                Number = item.Number,
                 Result = item.Result
             };
         }
