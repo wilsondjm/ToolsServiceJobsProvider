@@ -45,7 +45,7 @@ namespace RequestClient
 
 
 
-       public bool UpdateJobSetting(JobSetting jSetting, JobSettingProperties properties, string serverAddress = Constants.defaultJenkinsServerAddress)
+       public OperationResult<JobSetting> UpdateJobSetting(JobSetting jSetting, JobSettingProperties properties, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/config.xml");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
@@ -80,49 +80,14 @@ namespace RequestClient
 
                 if (postResponse.IsSuccessStatusCode)
                 {
-                    return true;
+                    return new OperationResult<JobSetting>(true) {  Entity= JobConfigHelper.parseCommonJobSettingsfromXml(xml,jSetting.JobName)};
                 }
                 else
                 {
-                    return false;
+                    return new OperationResult<JobSetting>(false) { };
                 }
 
             }
-
-            //PerforceSetting firstSetting = (PerforceSetting)jSetting.ScmSetting;
-            //string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
-            //    jSetting.JobName,
-            //    firstSetting.UserName,
-            //    firstSetting.Password,
-            //    firstSetting.SCMPort,
-            //    firstSetting.Workspace,
-            //    firstSetting.ViewMap,
-            //    jSetting.BuildPeriody
-            //);
-
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri(requestURL);
-            //    client.DefaultRequestHeaders.Accept.Clear();
-            //    // authentication header
-            //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
-
-            //    HttpRequestMessage request = new HttpRequestMessage();
-            //    request.Content = new StringContent(scmString);
-            //    request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/xml");
-            //    request.RequestUri = new Uri(requestURL);
-            //    request.Method = HttpMethod.Post;
-            //    HttpResponseMessage response = client.SendAsync(request, HttpCompletionOption.ResponseContentRead).Result;
-
-            //    if (response.IsSuccessStatusCode)
-            //    {
-            //        return true;
-            //    }
-            //    else
-            //    {
-            //        return false;
-            //    }
-            //}
         }
 
     }

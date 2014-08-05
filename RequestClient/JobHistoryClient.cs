@@ -12,13 +12,14 @@ namespace RequestClient
 {
     public class JobHistoryClient
     {
-        private string baseURLSTR = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=builds[duration,fullDisplayName,number,id,result],lastBuild[duration,fullDisplayName,number,id,result],color";
         
         public JobHistoryClient()
         { }
 
         public JobHistory getJobHistory(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
+            string baseURLSTR = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=builds[duration,fullDisplayName,number,id,result],lastBuild[duration,fullDisplayName,number,id,result],color";
+        
             StringBuilder baseURL = new StringBuilder(baseURLSTR);
             JobHistory history;
 

@@ -38,9 +38,10 @@ namespace StringDetectorService.Controllers
         public HttpResponseMessage updateJobSetting(string jobName, JobSettingDto jobSettingData, bool realtime =false)
         {
             JobSetting jobSetting = jobSettingData.ToJobSetting();
-            if (jobSettingService.updateJobSetting(jobSetting))
+            OperationResult<JobSetting> result =jobSettingService.updateJobSetting(jobSetting);
+            if (result.IsSuccess)
             {
-                JobSettingDto responseData = jobSettingData;
+                JobSettingDto responseData = result.Entity.ToJobSettingDto();
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version

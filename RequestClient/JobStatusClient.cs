@@ -12,13 +12,14 @@ namespace RequestClient
 {
    public class JobStatusClient
     {
-         private string baseURLSTR = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=color";
+          
 
          public JobStatusClient()
         { }
 
         public JobStatus getJobStatus(string jobName, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
+            string baseURLSTR = "http://[SERVERADDRESS]/job/[JOBNAME]/api/xml?tree=color";
             Dictionary<string, string> colorConvertMap = new Dictionary<string, string>(){
              {"red","Failed"},
              {"red_anime","InProgress"},

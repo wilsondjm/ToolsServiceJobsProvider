@@ -33,8 +33,8 @@ namespace StringDetectorService.ReqResModel
             return new JobHistoryDto()
             {
                 JobName = builds.JobName,
-                JobHistories =builds.JobHistories.Select(item => item.ToHistoryItemDto()).ToList(),
-                LastBuild = builds.LastBuild.ToHistoryItemDto()
+                JobHistories =builds.JobHistories!=null?  builds.JobHistories.Select(item => item.ToHistoryItemDto()).ToList(): null,
+                LastBuild =builds.LastBuild!=null?  builds.LastBuild.ToHistoryItemDto():null
             };
 
         }

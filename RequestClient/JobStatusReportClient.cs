@@ -12,16 +12,18 @@ namespace RequestClient
     public class JobReportsClient
     {
         //   lastBuild
-        StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/[BUILDNAME]/logText/progressiveText?start=[OFFSET]");
+       
 
-        public JobReportsClient(string serverAddress = Constants.defaultJenkinsServerAddress)
+        public JobReportsClient()
         {
-            baseURL.Replace("[SERVERADDRESS]", serverAddress);
+           
         }
 
-        public JobReport FetchReport(string projectName, string buildName = "lastBuild", string offSet = "0")
+        public JobReport FetchReport(string projectName, string buildName = "lastBuild", string offSet = "0", string serverAddress = Constants.defaultJenkinsServerAddress)
         {
+            StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/[BUILDNAME]/logText/progressiveText?start=[OFFSET]");
             JobReport queryProject = new JobReport() { JobName = projectName };
+            baseURL.Replace("[SERVERADDRESS]", serverAddress);
             baseURL.Replace("[PROJECTNAME]", queryProject.JobName);
             baseURL.Replace("[BUILDNAME]", buildName);
             baseURL.Replace("[OFFSET]", offSet);

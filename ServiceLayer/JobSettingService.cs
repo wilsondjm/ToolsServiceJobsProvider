@@ -18,7 +18,7 @@ namespace ServiceLayer
             jobSettingClient = new JobSettingClient();
         }
 
-        public bool updateJobSetting(JobSetting jobSetting)
+        public OperationResult<JobSetting> updateJobSetting(JobSetting jobSetting)
         {
             return jobSettingClient.UpdateJobSetting(jobSetting,new JobSettingProperties(jobSetting));
         }
