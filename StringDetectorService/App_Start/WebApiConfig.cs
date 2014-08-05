@@ -1,4 +1,5 @@
-﻿using StringDetectorService.Trace;
+﻿using Newtonsoft.Json;
+using StringDetectorService.Trace;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,8 @@ namespace StringDetectorService
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi",
-            //    routeTemplate: "api/{controller}/{id}",
-            //    defaults: new { id = RouteParameter.Optional }
-            //);
+            // add type name handing 
+            config.Formatters.JsonFormatter.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
 
             //enable customized trace writer
             config.Services.Replace(typeof(ITraceWriter), new CustomizedTraceWriter());

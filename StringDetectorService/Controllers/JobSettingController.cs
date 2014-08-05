@@ -1,4 +1,5 @@
-﻿using SDService.Model;
+﻿using Newtonsoft.Json;
+using SDService.Model;
 using SDService.Model.Basic;
 using SDService.Model.Utils;
 using ServiceLayer;
@@ -29,7 +30,7 @@ namespace StringDetectorService.Controllers
         public JobSettingDto getJobSetting(string jobName)
         {
             JobSetting settings = jobSettingService.getJobSetting(jobName);
-             return settings.ToJobSettingDto();
+            return settings.ToJobSettingDto();;
         }
 
         [Route("")]
@@ -39,7 +40,7 @@ namespace StringDetectorService.Controllers
             JobSetting jobSetting = jobSettingData.ToJobSetting();
             if (jobSettingService.updateJobSetting(jobSetting))
             {
-                JobSettingDto responseData = jobSetting.ToJobSettingDto();
+                JobSettingDto responseData = jobSettingData;
                 if (realtime)
                 {
                     // we will try to set partital response for real time next version
@@ -50,5 +51,6 @@ namespace StringDetectorService.Controllers
            }
             return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.UpdateSettingsFailed);
         }
+       
     }
 }

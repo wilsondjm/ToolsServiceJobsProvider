@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDService.Model.Basic;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -87,5 +88,23 @@ namespace SDService.Model.Utils
         // jenkins authentication
         public const string JenkinsUserName = "citrix";
         public const string JenkinsPassword = "citrix";
+
+        //upstream project in jenkins job config xml
+        public const string UpstreamProjectFlag = "upstreamProjects";
+        // scm class string
+        public const string GitSCM = "hudson.plugins.git.GitSCM";
+        public const string PerforceSCM = "hudson.plugins.perforce.PerforceSCM";
+        public const string SubversionSCM = "hudson.scm.SubversionSCM";
+
+        public const string Git = "git";
+        public const string SVN = "svn";
+        public const string Perforce = "perforce";
+
+        public  enum SCMType {GIT,SVN,PERFORECE }
+        public static Dictionary<Type, SCMType> ScmTypeDict = new Dictionary<Type, SCMType>(){
+            {typeof(PerforceSetting),SCMType.PERFORECE},
+            {typeof(GitSetting),SCMType.GIT},
+            {typeof(SVNSetting),SCMType.SVN}
+        };
     }
 }

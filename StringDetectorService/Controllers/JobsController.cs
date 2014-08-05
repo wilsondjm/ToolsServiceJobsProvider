@@ -63,22 +63,9 @@ namespace StringDetectorService.Controllers
         public HttpResponseMessage createJob(string jobName, JobSettingDto jobSettingData,bool realTime=false)
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
-            SCMSetting scmSetting = new SCMSetting()
-            {
-                SCMPort = jobSettingData.SCMPort,
-                UserName = jobSettingData.UserName,
-                Password = new PasswordEncryptionService().encryptString(jobSettingData.Password, HttpContext.Current.Server.MapPath(""), "\\..\\.."),
-                Workspace = jobSettingData.Workspace,
-                ViewMap = jobSettingData.ViewMap
-            };
-            var scmList = new List<SCMSetting>(); scmList.Add(scmSetting);
 
-            if (jobsService.CreateJob(new JobSetting()
-            {
-                JobName = jobName,
-                BuildPeriody = jobSettingData.BuildPeriody,
-                ScmSettings = scmList
-            }, new JobConfiguration()
+            if (jobsService.CreateJob(jobSettingData.ToJobSetting(true)
+            , new JobConfiguration()
             {
                 JobName = jobName,
                 Configuration = Constants.DefaultConfiguration

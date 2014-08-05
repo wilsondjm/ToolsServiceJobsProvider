@@ -50,7 +50,7 @@ namespace RequestClient
 
         public bool createJob(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
-            SCMSetting firstSetting = jSetting.ScmSettings.FirstOrDefault();
+            PerforceSetting firstSetting = (PerforceSetting)jSetting.ScmSetting;
 
             string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
                 jSetting.JobName,

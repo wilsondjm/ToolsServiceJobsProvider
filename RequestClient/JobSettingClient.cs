@@ -31,31 +31,26 @@ namespace RequestClient
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
 
                 string xml = System.Text.Encoding.UTF8.GetString((response.Content.ReadAsByteArrayAsync().Result));
-               // string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
+                if (xml.Contains(Constants.UpstreamProjectFlag))
+                {
+                   string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
+
+                   return QueryJobSetting( upStreamProject);
+                }
+               
                 return JobConfigHelper.parseCommonJobSettingsfromXml(xml, jobName);
             }
         }
 
 
 
-       public bool UpdateJobSetting(JobSetting jSetting, string serverAddress = Constants.defaultJenkinsServerAddress)
+
+       public bool UpdateJobSetting(JobSetting jSetting, JobSettingProperties properties, string serverAddress = Constants.defaultJenkinsServerAddress)
         {
             StringBuilder baseURL = new StringBuilder("http://[SERVERADDRESS]/job/[PROJECTNAME]/config.xml");
             baseURL.Replace("[SERVERADDRESS]", serverAddress);
             baseURL.Replace("[PROJECTNAME]", jSetting.JobName);
             string requestURL = baseURL.ToString();
-
-            SCMSetting firstSetting = jSetting.ScmSettings.FirstOrDefault();
-            string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
-                jSetting.JobName,
-                firstSetting.UserName,
-                firstSetting.Password,
-                firstSetting.SCMPort,
-                firstSetting.Workspace,
-                firstSetting.ViewMap,
-                jSetting.BuildPeriody
-            );
-
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(requestURL);
@@ -63,14 +58,27 @@ namespace RequestClient
                 // authentication header
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
 
+                HttpResponseMessage getResponse = client.GetAsync(string.Empty).Result;
+
+                string xml = System.Text.Encoding.UTF8.GetString((getResponse.Content.ReadAsByteArrayAsync().Result));
+                if (xml.Contains(Constants.UpstreamProjectFlag))
+                {
+                    string upStreamProject = JobConfigHelper.parseUpStreamProjectfromXml(xml);
+                    jSetting.JobName = upStreamProject;
+                    // update the upStreamProject setting
+                    return UpdateJobSetting(jSetting,properties);
+                }
+
+               // return JobConfigHelper.parseCommonJobSettingsfromXml(xml, jobName);
+                xml = JobConfigHelper.updateJobSetting(xml, jSetting,properties);
                 HttpRequestMessage request = new HttpRequestMessage();
-                request.Content = new StringContent(scmString);
+                request.Content = new StringContent(xml);
                 request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/xml");
                 request.RequestUri = new Uri(requestURL);
                 request.Method = HttpMethod.Post;
-                HttpResponseMessage response = client.SendAsync(request, HttpCompletionOption.ResponseContentRead).Result;
+                HttpResponseMessage postResponse = client.SendAsync(request, HttpCompletionOption.ResponseContentRead).Result;
 
-                if (response.IsSuccessStatusCode)
+                if (postResponse.IsSuccessStatusCode)
                 {
                     return true;
                 }
@@ -78,8 +86,46 @@ namespace RequestClient
                 {
                     return false;
                 }
+
             }
+
+            //PerforceSetting firstSetting = (PerforceSetting)jSetting.ScmSetting;
+            //string scmString = JobConfigHelper.getP4SingleDepotJobConfig(
+            //    jSetting.JobName,
+            //    firstSetting.UserName,
+            //    firstSetting.Password,
+            //    firstSetting.SCMPort,
+            //    firstSetting.Workspace,
+            //    firstSetting.ViewMap,
+            //    jSetting.BuildPeriody
+            //);
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri(requestURL);
+            //    client.DefaultRequestHeaders.Accept.Clear();
+            //    // authentication header
+            //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
+
+            //    HttpRequestMessage request = new HttpRequestMessage();
+            //    request.Content = new StringContent(scmString);
+            //    request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/xml");
+            //    request.RequestUri = new Uri(requestURL);
+            //    request.Method = HttpMethod.Post;
+            //    HttpResponseMessage response = client.SendAsync(request, HttpCompletionOption.ResponseContentRead).Result;
+
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        return true;
+            //    }
+            //    else
+            //    {
+            //        return false;
+            //    }
+            //}
         }
 
     }
+
+   
 }

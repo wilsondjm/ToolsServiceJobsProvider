@@ -1,5 +1,7 @@
 ﻿using RequestClient;
 using SDService.Model;
+using SDService.Model.Basic;
+using SDService.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,12 +20,15 @@ namespace ServiceLayer
 
         public bool updateJobSetting(JobSetting jobSetting)
         {
-            return jobSettingClient.UpdateJobSetting(jobSetting);
+            return jobSettingClient.UpdateJobSetting(jobSetting,new JobSettingProperties(jobSetting));
         }
 
         public JobSetting getJobSetting(string jobName)
         {
             return jobSettingClient.QueryJobSetting(jobName);
         }
+
     }
+
+  
 }

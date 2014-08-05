@@ -47,7 +47,7 @@ namespace ServiceLayer
             ToolFieldProperties toolFields = new ToolFieldProperties(fieldsMap==null?null:new List<string>(fieldsMap.Keys));
             if (toolFields.containsJobs)
             {
-                JobFieldProperties jobFields = new JobFieldProperties(fieldsMap == null?null : fieldsMap[Constants.JobsField]);
+                JobProperties jobFields = new JobProperties(fieldsMap == null?null : fieldsMap[Constants.JobsField]);
                 foreach (Job job in tool.Jobs)
                 {
                     if (jobFields.containsJobSetting)
@@ -79,43 +79,5 @@ namespace ServiceLayer
     }
 
 
-    class ToolFieldProperties
-    {
-        public bool containsViewName = false;
-        public bool containsToolName = false;
-        public bool containsJobs = false;
-
-        public ToolFieldProperties(ICollection<string> fields)
-        {
-            setToolFieldProperties(fields);
-        }
-        private void setToolFieldProperties(ICollection<string> fields)
-        {
-
-            if (fields == null || fields.Contains("*"))
-            {
-                containsViewName = true;
-                containsToolName = true;
-                containsJobs = true;
-                return;
-            }
-
-            foreach (string field in fields)
-            {
-                string effectiveField = field.ToLower();
-                switch (effectiveField)
-                {
-                    case Constants.ViewNameField:
-                        containsViewName = true;
-                        break;
-                    case Constants.ToolNameField:
-                        containsToolName = true;
-                        break;
-                    case Constants.JobsField:
-                        containsJobs = true;
-                        break;
-                }
-            }
-        }
-    }
+   
 }
