@@ -104,10 +104,12 @@ namespace ServiceLayer
 
 
 
-        public bool CreateJob (JobSetting jobSetting, JobConfiguration configuration)
+        public bool CreateJob(string jobName, string upstreamProject, string configuration)
         {
             //maybe should create configuration first
-            return (configClient.addConfiguration(configuration.JobName, configuration.Configuration) && jobsClient.createJob(jobSetting));
+           // return (configClient.addConfiguration(jobName, configuration) && jobsClient.createJob(jobName, upstreamProject));
+            // temporary disable create job configuration when creating job
+            return ( jobsClient.createJob(jobName, upstreamProject));
         }
 
         public bool deleteJob (string projectName)

@@ -9,6 +9,12 @@ namespace SDService.Model
     public class Project: View
     {
         public string ProjectName { get; set; }
-        public const string Prifix="Project-";
+        public static const string Prefix = "Project-";
+
+        //public Project()
+        //    : base()
+        //{
+        //    Prefix = "Project-";
+        //}
     }
 }

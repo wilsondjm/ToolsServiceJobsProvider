@@ -11,25 +11,29 @@ namespace SDService.Model.Utils
 {
     public class JobConfigHelper
     {
-        public static string getP4SingleDepotJobConfig(string projectName, string p4User, string p4Passwd, string p4Port, string p4Workspace, string projectPath, string buildPeriody)
+
+        public static string getTemplateConfigXml(string toolName,string upstreamProject,string assigneNode )
         {
-            StringBuilder scmString = new StringBuilder(Constants.perforceSetting);
-            scmString.Replace("[P4USERNAME]", p4User);
-            scmString.Replace("[P4PASSWORD]", p4Passwd);
-            scmString.Replace("[P4PORT]", p4Port);
-            scmString.Replace("[P4WORKSPACE]", p4Workspace);
-            scmString.Replace("[PROJECTPATH]", projectPath);
-
-            StringBuilder p4JobConfig = new StringBuilder(Constants.projectSetting);
-            p4JobConfig.Replace("[BUILDPERIODY]", buildPeriody);
-            p4JobConfig.Replace("[PROJECTNAME]", projectName);
-            p4JobConfig.Replace("[SCMSETTING]", scmString.ToString());
-
-            return p4JobConfig.ToString();
+            StringBuilder projectConfig = new StringBuilder(Constants.projectSetting);
+            // replace command in first place 
+            projectConfig.Replace("[COMMAND]", Constants.ToolCommandMap[toolName]);
+            projectConfig.Replace("[UPSTREAMPROJECT]", upstreamProject);
+            projectConfig.Replace("[ASSIGNEDNODE]", assigneNode);
+            return projectConfig.ToString();
         }
 
+        public static string getAssignNode(string xml)
+        {
+            XDocument xDoc = XDocument.Parse(xml);
+            XElement assignNodeElement = xDoc.Descendants("assignedNode").FirstOrDefault();
+            if (assignNodeElement == null)
+            {
+                return null;
+            }
+            return assignNodeElement.Value;
 
-
+        }
+        
 
         public static string updatePerforceSetting( XDocument xDoc,PerforceSetting setting,PerforceSettingProperties properties)
         {

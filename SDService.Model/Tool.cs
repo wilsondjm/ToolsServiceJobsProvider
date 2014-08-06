@@ -9,8 +9,13 @@ namespace SDService.Model
 {
     public class Tool:View
     {
+        //public Tool():base()
+        //{
+        //    Prefix = "Tool-";
+        //}
+
         public string ToolName { get; set; }
-        public const string Prifix = "Tool-";
+        public static const string Prefix ="Tool-";
     }
     public class ToolFieldProperties
     {

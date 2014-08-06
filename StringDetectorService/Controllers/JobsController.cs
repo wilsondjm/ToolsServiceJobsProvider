@@ -60,16 +60,11 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpPost]
-        public HttpResponseMessage createJob(string jobName, JobSettingDto jobSettingData,bool realTime=false)
-        {
+        public HttpResponseMessage createJob(string jobName, CreateJobData createJobData, bool realTime = false)
+           {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
 
-            if (jobsService.CreateJob(jobSettingData.ToJobSetting(true)
-            , new JobConfiguration()
-            {
-                JobName = jobName,
-                Configuration = Constants.DefaultConfiguration
-            }))
+            if (jobsService.CreateJob(createJobData.JobName,createJobData.UpstreamProject,Constants.DefaultConfiguration))
             {
                 Job job = jobsService.GetJob(jobName,fields);
                 JobDto responseData = job.ToJobDto();

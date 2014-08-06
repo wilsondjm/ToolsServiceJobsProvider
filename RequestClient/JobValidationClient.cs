@@ -22,6 +22,10 @@ namespace RequestClient
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(requestURL);
+                client.DefaultRequestHeaders.Accept.Clear();
+                // authentication header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
+
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -53,6 +57,9 @@ namespace RequestClient
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri(requestURL);
+                client.DefaultRequestHeaders.Accept.Clear();
+                // authentication header
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(string.Format("{0}:{1}", Constants.JenkinsUserName, Constants.JenkinsPassword))));
                 HttpResponseMessage response = client.GetAsync(string.Empty).Result;
                 if (response.IsSuccessStatusCode)
                 {

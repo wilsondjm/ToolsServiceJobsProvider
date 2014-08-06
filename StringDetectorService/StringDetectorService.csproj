@@ -828,6 +828,7 @@
     </Compile>
     <Compile Include="Hubs\JobHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReqResModel\CreateJobData.cs" />
     <Compile Include="ReqResModel\JobConfigDto.cs" />
     <Compile Include="ReqResModel\JobDto.cs" />
     <Compile Include="ReqResModel\JobHistoryDto.cs" />
