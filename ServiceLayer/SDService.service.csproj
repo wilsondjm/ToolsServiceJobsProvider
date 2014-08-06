@@ -49,7 +49,7 @@
     <Compile Include="JobValidationService.cs" />
     <Compile Include="PasswordEncryptionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolService.cs" />
+    <Compile Include="ViewService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RequestClient\SDService.client.csproj">

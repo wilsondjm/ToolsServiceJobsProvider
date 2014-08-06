@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -430,28 +431,28 @@ namespace SDService.Model.Utils
         }
 
 
-        public static IList<Tool> parseToolsfromXml(string xml)
+        public static IList<View> parseViewsfromXml(string xml,string prefix=Constants.DefaultTag)
         {
             XDocument xDoc = XDocument.Parse(xml);
 
-            IList<Tool> tools = xDoc.Descendants("view").Where(viewElement=>viewElement.Element("name").Value.StartsWith(Tool.Prifix)) .Select(
-               
-                toolElement => new Tool()
+            //IList<View> views = xDoc.Descendants("view").Where(viewElement=>viewElement.Element("name").Value.StartsWith(prefix)) .Select(
+            IList<View> views = xDoc.Descendants("view").Where(viewElement => Regex.IsMatch(viewElement.Element("name").Value, "^" + prefix + ".*")).Select(  
+                selectedViewElement => new View()
                 {
-                    ViewName = toolElement.Element("name").Value,
-                    ToolName = toolElement.Element("name").Value.Replace(Tool.Prifix,"")
+                    ViewName = selectedViewElement.Element("name").Value,
+                    Name = prefix == Constants.DefaultTag ? selectedViewElement.Element("name").Value : selectedViewElement.Element("name").Value.Replace(prefix, "")
                     
                 }
-                ).ToList<Tool>();
+                ).ToList<View>();
 
-            return tools;
+            return views;
         }
 
-        public static Tool parseToolfromXml(string xml,string toolName)
+        public static View parseViewfromXml(string xml,string name, string prefix = Constants.DefaultTag)
         {
             XDocument xDoc = XDocument.Parse(xml);
-            Tool tool = new Tool() { ViewName = Tool.Prifix + toolName, ToolName = toolName };
-            tool.Jobs = xDoc.Descendants("job").Select(
+            View view = new View() { ViewName = prefix + name, Name = name };
+            view.Jobs = xDoc.Descendants("job").Select(
                JobElement => new Job()
                {
                    JobName = JobElement.Element("name").Value,
@@ -463,25 +464,9 @@ namespace SDService.Model.Utils
                }
                ).ToList<Job>();
 
-            return tool;
+            return view;
         }
 
-
-        public static IList<Project> parseProjectsfromXml(string xml)
-        {
-            XDocument xDoc = XDocument.Parse(xml);
-
-            IList<Project> projects = xDoc.Descendants("view").Where(viewElement => viewElement.Element("name").Value.StartsWith(Project.Prifix)).Select(
-
-                projectElement => new Project()
-                {
-                    ViewName = projectElement.Element("name").Value,
-                    ProjectName = projectElement.Element("name").Value.Replace(Project.Prifix, "")
-
-                }
-                ).ToList<Project>();
-
-            return projects;
-        }
+       
     }
 }

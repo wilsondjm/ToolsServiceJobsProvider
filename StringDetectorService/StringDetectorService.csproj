@@ -821,7 +821,7 @@
     <Compile Include="Controllers\JobSettingController.cs" />
     <Compile Include="Controllers\JobStatusController.cs" />
     <Compile Include="Controllers\TestController.cs" />
-    <Compile Include="Controllers\ToolController.cs" />
+    <Compile Include="Controllers\ViewController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -835,7 +835,7 @@
     <Compile Include="ReqResModel\JobReportDto.cs" />
     <Compile Include="ReqResModel\JobSettingDto.cs" />
     <Compile Include="ReqResModel\JobStatusDto.cs" />
-    <Compile Include="ReqResModel\ToolDto.cs" />
+    <Compile Include="ReqResModel\ViewDto.cs" />
     <Compile Include="ReqResModel\ValidationData.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Trace\CustomizedTraceWriter.cs" />

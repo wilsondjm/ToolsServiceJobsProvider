@@ -43,8 +43,6 @@
   <ItemGroup>
     <Compile Include="Basic\JobHistory.cs" />
     <Compile Include="Basic\JobStatus.cs" />
-    <Compile Include="Project.cs" />
-    <Compile Include="Tool.cs" />
     <Compile Include="Utils\OperationResult.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Basic\JobConfiguration.cs" />

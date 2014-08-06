@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 
 namespace ServiceLayer
 {
-    public class ToolService
+    public class ViewService
     {
         // tool service use some clients 
-        ToolClient toolClient;
+        ViewClient viewClient;
         JobSettingClient settingClient;
         ConfigurationClient configClient;
         JobHistoryClient historyClient;
         JobReportsClient reportClient;
         JobStatusClient stausClient;
-        public ToolService(){
+        public ViewService(){
             // init these clients
-            toolClient = new ToolClient();
+            viewClient = new ViewClient();
             settingClient = new JobSettingClient();
             configClient = new ConfigurationClient();
             historyClient = new JobHistoryClient();
@@ -30,25 +30,25 @@ namespace ServiceLayer
         }
 
 
-        public IEnumerable<Tool> GetAllTools(Collection<string> fields)
+        public IEnumerable<View> GetAllViews(Collection<string> fields,string categoryTag)
         {
-            IList<Tool> tools = toolClient.QueryAllTools();
-            IEnumerable<Tool> result= tools.Select(tool=> GetTool(tool.ToolName,fields)).ToList();
+            IList<View> views = viewClient.QueryAllViews(categoryTag);
+            IEnumerable<View> result = views.Select(view => GetView(view.Name, fields, categoryTag)).ToList();
 
             return result;
         }
 
-        public Tool GetTool(string toolName, Collection<string> fields)
+        public View GetView(string name, Collection<string> fields, string categoryTag)
         {
-            Tool tool = toolClient.QueryTool(toolName);
+            View view = viewClient.QueryView(name,categoryTag);
             Dictionary<string,Collection<string>> fieldsMap= RequestFieldHelper.GetSecondLevelFields(fields);
             
 
-            ToolFieldProperties toolFields = new ToolFieldProperties(fieldsMap==null?null:new List<string>(fieldsMap.Keys));
-            if (toolFields.containsJobs)
+            ViewFieldProperties viewFields = new ViewFieldProperties(fieldsMap==null?null:new List<string>(fieldsMap.Keys));
+            if (viewFields.containsJobs)
             {
                 JobProperties jobFields = new JobProperties(fieldsMap == null?null : fieldsMap[Constants.JobsField]);
-                foreach (Job job in tool.Jobs)
+                foreach (Job job in view.Jobs)
                 {
                     if (jobFields.containsJobSetting)
                     {
@@ -74,7 +74,7 @@ namespace ServiceLayer
 
             }
             
-            return tool;
+            return view;
         }
     }
 

@@ -64,7 +64,7 @@
     <Compile Include="JobStatusReportClient.cs" />
     <Compile Include="JobValidationClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToolClient.cs" />
+    <Compile Include="ViewClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SDService.Model\SDService.Model.csproj">

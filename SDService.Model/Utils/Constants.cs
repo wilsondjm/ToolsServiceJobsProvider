@@ -71,11 +71,18 @@ namespace SDService.Model.Utils
         public  const string JobReportField = "report";
         public  const string JobStatusField = "status";
 
-        //tool field constants
-        public static readonly Collection<string> DefaultToolFields = new Collection<string> { ViewNameField, ToolNameField, JobsField };
+        //view field constants
+        public static readonly Collection<string> DefaultToolFields = new Collection<string> { ViewNameField, NameField, JobsField };
         public  const string ViewNameField = "viewname";
-        public  const string ToolNameField = "toolname";
+        public  const string NameField = "name";
         public  const string JobsField = "jobs";
+
+
+        // view category prefix
+        public const string DefaultTag = "";
+        public const string ToolTag = "Tool-";
+        public const string ProjectTag = "Project-";
+
 
         // jenkins authentication
         public const string JenkinsUserName = "citrix";
