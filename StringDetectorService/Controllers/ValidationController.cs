@@ -15,13 +15,16 @@ namespace StringDetectorService.Controllers
     public class ValidationController : ApiController
     {
         private JobValidationService validationService;
+        private ViewService viewService;
 
         public ValidationController()
         {
             validationService = new JobValidationService();
+            viewService = new ViewService();
         }
 
-        [Route("api/validation/jobname/")]
+         // the validation is defined by jenkins
+        [Route("api/validation/jenkins/jobname")]
         [HttpPost]
         public HttpResponseMessage validateJobName(ValidationData data)
         {
@@ -37,8 +40,27 @@ namespace StringDetectorService.Controllers
             
         }
 
+         // the valid is defined by self
+        [Route("api/validation/custom/jobname")]
+        [HttpPost]
+        public HttpResponseMessage validateCustomJobName(ValidationData data)
+        {
+            string jobName = System.Web.HttpUtility.HtmlEncode(data.Input);
 
-        [Route("api/validation/timing/")]
+            OperationResult result = validationService.validateCustomJobName(jobName);
+            if (result.IsSuccess)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
+            else
+            {
+                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+            }
+
+        }
+
+
+        [Route("api/validation/jenkins/timing")]
         [HttpPost]
         public HttpResponseMessage validateTiming(ValidationData data)
         {
