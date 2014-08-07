@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Web;
 using System.Net;
 
-namespace SDService.Model.Utils
+namespace ServiceProvider.Model.Utils
 {
    public  class RequestFieldHelper
     {

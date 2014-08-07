@@ -1,5 +1,5 @@
-﻿using SDService.Model.Basic;
-using SDService.Model.Utils;
+﻿using ServiceProvider.Model.Basic;
+using ServiceProvider.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace SDService.Model.Utils
+namespace ServiceProvider.Model.Utils
 {
     public class JobConfigHelper
     {

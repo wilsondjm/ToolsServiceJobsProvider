@@ -7,8 +7,8 @@
     <ProjectGuid>{DC118AC4-008B-4BD0-AD5A-4E73C3AA1EB0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceLayer</RootNamespace>
-    <AssemblyName>ServiceLayer</AssemblyName>
+    <RootNamespace>ServiceProvider.Service</RootNamespace>
+    <AssemblyName>ServiceProvider.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -52,13 +52,13 @@
     <Compile Include="ViewService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RequestClient\SDService.client.csproj">
+    <ProjectReference Include="..\RequestClient\ServiceProvider.Client.csproj">
       <Project>{07e5f467-746a-4930-965c-fcd069044f64}</Project>
-      <Name>SDService.client</Name>
+      <Name>ServiceProvider.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SDService.Model\SDService.Model.csproj">
+    <ProjectReference Include="..\SDService.Model\ServiceProvider.Model.csproj">
       <Project>{cc36d817-6995-4667-836d-9df14c4582e0}</Project>
-      <Name>SDService.Model</Name>
+      <Name>ServiceProvider.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

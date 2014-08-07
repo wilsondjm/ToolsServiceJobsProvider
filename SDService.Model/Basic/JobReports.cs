@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDService.Model
+namespace ServiceProvider.Model
 {
     public class JobReport
     {

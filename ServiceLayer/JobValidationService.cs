@@ -1,13 +1,13 @@
-﻿using RequestClient;
-using SDService.Model;
-using SDService.Model.Utils;
+﻿using ServiceProvider.Client;
+using ServiceProvider.Model;
+using ServiceProvider.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer
+namespace ServiceProvider.Service
 {
     public class JobValidationService
     {

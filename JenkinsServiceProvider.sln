@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringDetectorService", "StringDetectorService\StringDetectorService.csproj", "{9A19C431-D1BE-41EF-8988-DB6E0D2D28ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProvider.API", "StringDetectorService\ServiceProvider.API.csproj", "{9A19C431-D1BE-41EF-8988-DB6E0D2D28ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDService.client", "RequestClient\SDService.client.csproj", "{07E5F467-746A-4930-965C-FCD069044F64}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProvider.Client", "RequestClient\ServiceProvider.Client.csproj", "{07E5F467-746A-4930-965C-FCD069044F64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDService.service", "ServiceLayer\SDService.service.csproj", "{DC118AC4-008B-4BD0-AD5A-4E73C3AA1EB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProvider.Service", "ServiceLayer\ServiceProvider.Service.csproj", "{DC118AC4-008B-4BD0-AD5A-4E73C3AA1EB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDService.Model", "SDService.Model\SDService.Model.csproj", "{CC36D817-6995-4667-836D-9DF14C4582E0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceProvider.Model", "SDService.Model\ServiceProvider.Model.csproj", "{CC36D817-6995-4667-836D-9DF14C4582E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

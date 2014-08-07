@@ -1,5 +1,5 @@
-﻿using SDService.Model;
-using ServiceLayer;
+﻿using ServiceProvider.Model;
+using ServiceProvider.Service;
 using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;

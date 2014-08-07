@@ -1,5 +1,5 @@
-﻿using SDService.Model;
-using SDService.Model.Utils;
+﻿using ServiceProvider.Model;
+using ServiceProvider.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RequestClient
+namespace ServiceProvider.Client
 {
     public  class ViewClient
     {

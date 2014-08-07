@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDService.Model.Utils
+namespace ServiceProvider.Model.Utils
 {
     public class OperationResult
     {

@@ -1,4 +1,4 @@
-﻿using SDService.Model.Basic;
+﻿using ServiceProvider.Model.Basic;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDService.Model.Utils
+namespace ServiceProvider.Model.Utils
 {
     public static class Constants
     {

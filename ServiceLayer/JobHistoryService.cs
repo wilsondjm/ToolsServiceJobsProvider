@@ -1,12 +1,12 @@
-﻿using RequestClient;
-using SDService.Model.Basic;
+﻿using ServiceProvider.Client;
+using ServiceProvider.Model.Basic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ServiceLayer
+namespace ServiceProvider.Service
 {
     public class JobHistoryService
     {

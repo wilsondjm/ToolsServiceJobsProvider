@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SDService.Model;
-using SDService.Model.Basic;
-using SDService.Model.Utils;
-using ServiceLayer;
+using ServiceProvider.Model;
+using ServiceProvider.Model.Basic;
+using ServiceProvider.Model.Utils;
+using ServiceProvider.Service;
 using StringDetectorService.Hubs;
 using StringDetectorService.ReqResModel;
 using System;

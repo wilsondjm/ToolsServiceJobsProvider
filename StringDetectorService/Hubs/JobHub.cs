@@ -5,11 +5,11 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using System.Threading.Tasks;
-using SDService.Model;
+using ServiceProvider.Model;
 using System.Text;
 using System.Net.Http;
 using System.Diagnostics;
-using SDService.Model.Utils;
+using ServiceProvider.Model.Utils;
 
 namespace StringDetectorService.Hubs
 {

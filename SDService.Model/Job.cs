@@ -1,5 +1,5 @@
-﻿using SDService.Model.Basic;
-using SDService.Model.Utils;
+﻿using ServiceProvider.Model.Basic;
+using ServiceProvider.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SDService.Model
+namespace ServiceProvider.Model
 {
 
     public class Job

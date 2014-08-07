@@ -1,5 +1,5 @@
-﻿using SDService.Model.Basic;
-using SDService.Model.Utils;
+﻿using ServiceProvider.Model.Basic;
+using ServiceProvider.Model.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace RequestClient
+namespace ServiceProvider.Client
 {
    public class JobStatusClient
     {
