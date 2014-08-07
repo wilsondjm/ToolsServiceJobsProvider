@@ -114,6 +114,7 @@
     <Content Include="Global.asax" />
     <Content Include="P4PluginPasswordEncryption\Encryption.jar" />
     <Content Include="P4PluginPasswordEncryption\lib\commons-codec-1.9.jar" />
+    <None Include="Properties\PublishProfiles\Providr.pubxml" />
     <None Include="Properties\PublishProfiles\SDConnection.pubxml" />
     <Content Include="StringDetectorWebClient\.gitattributes" />
     <Content Include="StringDetectorWebClient\.gitignore" />
