@@ -714,8 +714,6 @@
     <Content Include="StringDetectorWebClient\js\plugin\jquery-filedownload\jquery.fileDownload.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-form\jquery-form.min.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-nestable\jquery.nestable.js" />
-    <Content Include="StringDetectorWebClient\js\plugin\jquery-signalR\jquery.signalR-2.0.0.js" />
-    <Content Include="StringDetectorWebClient\js\plugin\jquery-signalR\jquery.signalR-2.0.0.min.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-timer\jquery.timer.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-toolbar\jquery.toolbar.js" />
     <Content Include="StringDetectorWebClient\js\plugin\jquery-toolbar\jquery.toolbar.min.js" />
@@ -863,8 +861,8 @@
     <Content Include="StringDetectorWebClient\.git\logs\HEAD" />
     <Content Include="StringDetectorWebClient\.git\logs\refs\heads\master" />
     <Content Include="StringDetectorWebClient\.git\logs\refs\remotes\origin\HEAD" />
-    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-de59fccddac368c3f2662b1ad87efed18e19bae1.idx" />
-    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-de59fccddac368c3f2662b1ad87efed18e19bae1.pack" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-2234819730d38f6042d2437e5a24047003a98e79.idx" />
+    <Content Include="StringDetectorWebClient\.git\objects\pack\pack-2234819730d38f6042d2437e5a24047003a98e79.pack" />
     <Content Include="StringDetectorWebClient\.git\packed-refs" />
     <Content Include="StringDetectorWebClient\.git\refs\heads\master" />
     <Content Include="StringDetectorWebClient\.git\refs\remotes\origin\HEAD" />
@@ -931,11 +929,11 @@
     <Folder Include="StringDetectorWebClient\.git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SDService.Model\ServiceProvider.Model.csproj">
+    <ProjectReference Include="..\ServiceProvider.Model\ServiceProvider.Model.csproj">
       <Project>{cc36d817-6995-4667-836d-9df14c4582e0}</Project>
       <Name>ServiceProvider.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServiceLayer\ServiceProvider.Service.csproj">
+    <ProjectReference Include="..\ServiceProvider.Service\ServiceProvider.Service.csproj">
       <Project>{dc118ac4-008b-4bd0-ad5a-4e73c3aa1eb0}</Project>
       <Name>ServiceProvider.Service</Name>
     </ProjectReference>
