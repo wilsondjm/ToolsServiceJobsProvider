@@ -48,7 +48,6 @@ namespace StringDetectorService.Controllers
                     responseData.JobName = jobName;
                     Hub.Clients.AllExcept(connectionId).updateJobSettingCallBack(responseData);
                 }
-
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
            }
             return Request.CreateResponse(HttpStatusCode.BadRequest, Constants.UpdateSettingsFailed);
