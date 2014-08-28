@@ -60,7 +60,7 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpPost]
-        public HttpResponseMessage createJob(string jobName, CreateJobData createJobData, bool realTime = false)
+        public HttpResponseMessage createJob(string jobName, CreateJobData createJobData, bool realTime = false,string connectionId="")
            {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
 
@@ -68,10 +68,11 @@ namespace StringDetectorService.Controllers
             {
                 Job job = jobsService.GetJob(jobName,fields);
                 JobDto responseData = job.ToJobDto();
-                if (realTime)
+                if (realTime&&connectionId!="")
                 {
-                    // we will try to set partital response for real time next version
-                    Hub.Clients.All.addJobCallBack(responseData);
+                    // for the partial response reason ,some request will not require job name filed ,we will add it by hand.
+                    responseData.JobName = jobName;
+                    Hub.Clients.AllExcept(connectionId).addJobCallBack(responseData);
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
@@ -83,14 +84,14 @@ namespace StringDetectorService.Controllers
 
         [Route("{jobName}")]
         [HttpDelete]
-        public HttpResponseMessage deleteJob(string jobName,bool realTime=false)
+        public HttpResponseMessage deleteJob(string jobName,bool realTime=false,string connectionId="")
         {
             if(jobsService.deleteJob(jobName))
             {
-                if (realTime)
+                if (realTime&&connectionId!="")
                 {
                     // we will try to set partital response for real time next version
-                    Hub.Clients.All.deleteJobCallBack(jobName);
+                    Hub.Clients.AllExcept(connectionId).deleteJobCallBack(jobName);
 
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, jobName);

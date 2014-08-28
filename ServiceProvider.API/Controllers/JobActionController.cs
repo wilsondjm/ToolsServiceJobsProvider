@@ -28,7 +28,7 @@ namespace StringDetectorService.Controllers
 
         [Route("api/Jobs/{JobName}/start")]
         [HttpPost]
-        public HttpResponseMessage StartJob(string JobName,bool realtime =false)
+        public HttpResponseMessage StartJob(string JobName,bool realtime =false,string connectionId="")
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             bool result = jobActionService.startJob(JobName);
@@ -37,10 +37,11 @@ namespace StringDetectorService.Controllers
                Job  job= jobsService.GetJob(JobName,fields);
                JobDto responseData = job.ToJobDto();
                               
-               if (realtime)
+               if (realtime&&connectionId!="")
                {
-                   // we will try to set partital response for real time next version
-                   Hub.Clients.All.startJobCallBack(responseData);
+                   // for the partial response reason ,some request will not require job name filed ,we will add it by hand.
+                   responseData.JobName = JobName;
+                   Hub.Clients.AllExcept(connectionId).startJobCallBack(responseData);
                }
                return Request.CreateResponse(HttpStatusCode.OK,responseData);
             }
@@ -49,7 +50,7 @@ namespace StringDetectorService.Controllers
 
         [Route("api/Jobs/{JobName}/stop")]
         [HttpDelete]
-        public HttpResponseMessage StopJob(string JobName,bool realtime =false)
+        public HttpResponseMessage StopJob(string JobName,bool realtime =false,string connectionId="")
         {
             Collection<string> fields = RequestFieldHelper.GetPartialResponseFields(Request);
             bool result = jobActionService.stopJob(JobName);
@@ -57,10 +58,11 @@ namespace StringDetectorService.Controllers
             {
                 Job job = jobsService.GetJob(JobName,fields);
                 JobDto responseData = job.ToJobDto();
-                if (realtime)
+                if (realtime&&connectionId!="")
                 {
-                    // we will try to set partital response for real time next version
-                    Hub.Clients.All.stopJobCallBack(responseData);
+                    // for the partial response reason ,some request will not require job name filed ,we will add it by hand.
+                    responseData.JobName = JobName;
+                    Hub.Clients.AllExcept(connectionId).stopJobCallBack(responseData);
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);
             }

@@ -40,7 +40,7 @@ namespace ServiceProvider.Client
                         
                     }
                     else {
-                        return new OperationResult(true) {Type="ok" ,Message="The name is unique"};
+                        return new OperationResult(true) {Type=Constants.okType ,Message="The name is unique"};
                     }
                 }
                 else
@@ -74,7 +74,7 @@ namespace ServiceProvider.Client
                     }
                     else
                     {
-                        return new OperationResult(true) { Type = "ok", Message = "The setting is ok" };
+                        return new OperationResult(true) { Type = Constants.okType, Message = "The setting is ok" };
                     }
                 }
                 else

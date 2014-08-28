@@ -35,17 +35,18 @@ namespace StringDetectorService.Controllers
 
         [Route("")]
         [HttpPut]
-        public HttpResponseMessage updateJobSetting(string jobName, JobSettingDto jobSettingData, bool realtime =false)
+        public HttpResponseMessage updateJobSetting(string jobName, JobSettingDto jobSettingData, bool realtime =false,string connectionId="")
         {
             JobSetting jobSetting = jobSettingData.ToJobSetting();
             OperationResult<JobSetting> result =jobSettingService.updateJobSetting(jobSetting);
             if (result.IsSuccess)
             {
                 JobSettingDto responseData = result.Entity.ToJobSettingDto();
-                if (realtime)
+                if (realtime&&connectionId!="")
                 {
-                    // we will try to set partital response for real time next version
-                    Hub.Clients.All.updateJobSettingCallBack(responseData);
+                    // for the partial response reason ,some request will not require job name filed ,we will add it by hand.
+                    responseData.JobName = jobName;
+                    Hub.Clients.AllExcept(connectionId).updateJobSettingCallBack(responseData);
                 }
 
                 return Request.CreateResponse(HttpStatusCode.OK, responseData);

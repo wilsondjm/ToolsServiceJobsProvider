@@ -105,5 +105,8 @@ namespace ServiceProvider.Model.Utils
             {typeof(GitSetting),SCMType.GIT},
             {typeof(SVNSetting),SCMType.SVN}
         };
+        // validation result type
+        public const string okType = "ok";
+        public const string errorType = "error";
     }
 }

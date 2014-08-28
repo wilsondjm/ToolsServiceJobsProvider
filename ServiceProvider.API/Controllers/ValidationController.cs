@@ -50,12 +50,13 @@ namespace StringDetectorService.Controllers
             OperationResult result = validationService.validateCustomJobName(jobName);
             if (result.IsSuccess)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, result);
+                result.Type = Constants.okType;
             }
             else
             {
-                return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                result.Type = Constants.errorType;
             }
+            return Request.CreateResponse(HttpStatusCode.OK, result);
 
         }
 
@@ -66,6 +67,7 @@ namespace StringDetectorService.Controllers
         {
              string timing = System.Web.HttpUtility.HtmlEncode(data.Input);
             OperationResult result = validationService.validateTiming(timing);
+
             if (result.IsSuccess)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, result);
